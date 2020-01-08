@@ -9,7 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 
 val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
-const val DEFAULT_ZOOM = 15F
+const val DEFAULT_ZOOM = 17F
 
 class HomeViewModel : ViewModel() {
 
@@ -21,8 +21,8 @@ class HomeViewModel : ViewModel() {
 
 	fun setMap(map: GoogleMap) {
 		_map = map.also {
-			it.setMinZoomPreference(6.0f)
-			it.setMaxZoomPreference(14.0f)
+			it.setMinZoomPreference(15.0f)
+			it.setMaxZoomPreference(19.0f)
 		}
 	}
 

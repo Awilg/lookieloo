@@ -49,6 +49,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
+
     }
 
     override fun onMapReady(map: GoogleMap) {
