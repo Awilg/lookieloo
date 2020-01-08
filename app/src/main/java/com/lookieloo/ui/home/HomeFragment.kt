@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.lookieloo.R
 
+
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var homeViewModel: HomeViewModel
@@ -36,7 +37,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
-
+    override fun onMapReady(map: GoogleMap?) {
     }
 }
