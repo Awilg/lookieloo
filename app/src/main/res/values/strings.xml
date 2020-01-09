@@ -1,4 +1,5 @@
 <resources>
 	<string name="app_name">LookieLoo</string>
 	<string name="create_loo">Create a Loo</string>
+	<string name="filter_loos">Filter Loos</string>
 </resources>
