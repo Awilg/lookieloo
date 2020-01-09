@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -57,9 +58,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             Toast.makeText(context, "Clicked Create!", Toast.LENGTH_SHORT).show()
         }
 
+        val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         filterFab.setOnClickListener {
-            Toast.makeText(context, "Clicked Filter!", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+            //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
     }
 

@@ -1,11 +1,26 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="LookielooTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 		<!-- Customize your theme here. -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSurface">@color/color_surface</item>
+
+		<item name="shapeAppearanceLargeComponent">@style/LookielooLargeComponent</item>
+
+		<item name="bottomSheetStyle">@style/LookielooBottomSheetStyle</item>
+	</style>
+
+    <style name="LookielooBottomSheetStyle">
+        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+        <item name="android:elevation">16dp</item>
+    </style>
+
+	<style name="LookielooLargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">16dp</item>
 	</style>
 
 </resources>

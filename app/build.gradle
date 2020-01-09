@@ -40,8 +40,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
+    // Permissions
     implementation 'pub.devrel:easypermissions:3.0.0'
 
+    // Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Material Components
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
 
 }
