@@ -9,7 +9,11 @@
 		android:id="@+id/homeFragment"
 		android:name="com.lookieloo.ui.home.HomeFragment"
 		tools:layout="@layout/fragment_home"
-		android:label="HomeFragment" />
+		android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/filterFragment"

@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
+import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -50,6 +53,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
+        createFab.setOnClickListener {
+            Toast.makeText(context, "Clicked Create!", Toast.LENGTH_SHORT).show()
+        }
+
+        filterFab.setOnClickListener {
+            Toast.makeText(context, "Clicked Filter!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+        }
     }
 
     override fun onMapReady(map: GoogleMap) {

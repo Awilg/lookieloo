@@ -22,14 +22,14 @@
         app:layout_dodgeInsetEdges="bottom">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/filter"
+            android:id="@+id/filterFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/filter_loos"
             android:src="@drawable/ic_filter_list_black_24dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/createFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
