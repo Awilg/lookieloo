@@ -7,15 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
@@ -23,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
+import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback,
@@ -54,17 +57,40 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        createFab.setOnClickListener {
-            Toast.makeText(context, "Clicked Create!", Toast.LENGTH_SHORT).show()
-        }
-
         val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
+        val createLooBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
+        createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         filterFab.setOnClickListener {
             //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+            createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
+
+        createFab.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+
+        // Initialize the AutocompleteSupportFragment.
+        val autocompleteFragment =
+            childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) { // TODO: Get info about the selected place.
+                Timber.i("Place: ${place.name}, ${place.id}")
+            }
+
+            override fun onError(p0: Status) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
     override fun onMapReady(map: GoogleMap) {

@@ -3,4 +3,5 @@
 	<string name="create_loo">Create a Loo</string>
 	<string name="filter_loos">Filter Loos</string>
     <string name="filter">Filter</string>
+    <string name="search">Search</string>
 </resources>

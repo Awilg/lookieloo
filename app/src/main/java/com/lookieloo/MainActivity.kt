@@ -6,13 +6,19 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-
+import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Initialize the places SDK
+        Places.initialize(applicationContext, resources.getString(R.string.google_maps_key))
+
+        // Create a new Places client instance
+        val placesClient = Places.createClient(this)
 
         // Handle status bar
         val w: Window = window
