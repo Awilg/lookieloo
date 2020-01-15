@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:flexWrap="wrap">
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_clean"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/clean" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_handicap"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/accessible" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_public"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/public_filter" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_mixed_gender"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/mixed_gender" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_baby"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/baby_friendly" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_shared"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/shared" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_air_dryer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/air_dryer" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_lighting"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		style="@style/LookielooFilterButton"
+		android:text="@string/good_lighting" />
+
+</com.google.android.flexbox.FlexboxLayout>

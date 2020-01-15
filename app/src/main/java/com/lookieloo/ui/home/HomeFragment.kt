@@ -63,6 +63,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         val createLooBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
         createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
+        val searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
+
         filterFab.setOnClickListener {
             //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
             createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN

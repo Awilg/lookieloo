@@ -4,4 +4,13 @@
 	<string name="filter_loos">Filter Loos</string>
     <string name="filter">Filter</string>
     <string name="search">Search</string>
+    <string name="clean">Clean</string>
+    <string name="handicap_accessible">handicap accessible</string>
+    <string name="accessible">accessible</string>
+    <string name="public_filter">public</string>
+    <string name="mixed_gender">mixed gender</string>
+    <string name="baby_friendly">baby friendly</string>
+    <string name="shared">Shared</string>
+    <string name="air_dryer">Air Dryer</string>
+    <string name="good_lighting">Good lighting</string>
 </resources>
