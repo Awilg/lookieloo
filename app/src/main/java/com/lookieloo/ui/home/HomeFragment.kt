@@ -57,24 +57,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
         val createLooBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
         createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         val searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
-
-        filterFab.setOnClickListener {
-            //findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
-            createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        }
-
-        createFab.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        }
 
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragment =

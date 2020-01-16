@@ -13,4 +13,6 @@
     <string name="shared">Shared</string>
     <string name="air_dryer">Air Dryer</string>
     <string name="good_lighting">Good lighting</string>
+    <string name="found_a_loo_that_we_haven_t">Found a Loo that we haven\'t?</string>
+    <string name="add_it_here">add loo</string>
 </resources>
