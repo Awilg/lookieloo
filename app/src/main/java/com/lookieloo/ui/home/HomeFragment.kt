@@ -15,6 +15,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -25,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
-import java.util.*
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback,
@@ -82,6 +82,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onMapReady(map: GoogleMap) {
+        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
         homeViewModel.setMap(map)
         checkLocationPermission()
         getDeviceLocation()

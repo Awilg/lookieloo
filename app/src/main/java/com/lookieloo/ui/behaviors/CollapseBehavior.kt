@@ -29,7 +29,7 @@ class CollapseBehavior<V : ViewGroup>(context: Context?, attrs: AttributeSet?) :
 			if (dependency.top >= actualPeek) {
 				// Only perform translations when the view is between "hidden" and "collapsed" states
 				val dy: Int = dependency.top - parent.height
-				child.translationY = (dy / 2).toFloat()
+				child.translationY = (dy / 3).toFloat()
 				return true
 			}
 		}
