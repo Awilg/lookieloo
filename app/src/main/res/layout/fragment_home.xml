@@ -30,16 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="70dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
             <TextView
                 android:id="@+id/createLoo"
                 android:layout_width="wrap_content"
@@ -54,7 +44,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
-
     <FrameLayout
         android:id="@+id/searchBottomSheet"
         style="?attr/bottomSheetStyle"
@@ -64,55 +53,33 @@
         app:behavior_peekHeight="100dp"
         app:behavior_skipCollapsed="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
         <!-- Bottom Sheet contents -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="70dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <fragment
-                android:id="@+id/autocomplete_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_places"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:iconifiedByDefault="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/divider_search_filter"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:background="@color/light_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/autocomplete_fragment" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/filter_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/filter"
                 android:textSize="36sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_search_filter" />
+                app:layout_constraintTop_toBottomOf="@id/search_places" />
 
             <include
                 android:id="@+id/filter_buttons"

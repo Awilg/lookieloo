@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.lookieloo.model.Loo
 
 val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
 const val DEFAULT_ZOOM = 17F
@@ -18,6 +19,10 @@ class HomeViewModel : ViewModel() {
 	private val _lastKnownLocation = MutableLiveData<Location>()
 	val lastKnownLocation: LiveData<Location>
 		get() = _lastKnownLocation
+
+	private val _nearbyLoos = MutableLiveData<MutableList<Loo>>()
+	val nearbyLoos: LiveData<MutableList<Loo>>
+		get() = _nearbyLoos
 
 	fun setMap(map: GoogleMap) {
 		_map = map.also {
