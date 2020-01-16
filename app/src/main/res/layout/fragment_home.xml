@@ -9,7 +9,8 @@
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior=".ui.behaviors.CollapseBehavior"/>
 
     <!--    Create a loo sheet -->
     <FrameLayout
@@ -138,8 +139,8 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_it_here"
                 android:layout_marginStart="16dp"
+                android:text="@string/add_it_here"
                 app:layout_constraintBaseline_toBaselineOf="@+id/add_loo_text"
                 app:layout_constraintStart_toEndOf="@id/add_loo_text" />
 
