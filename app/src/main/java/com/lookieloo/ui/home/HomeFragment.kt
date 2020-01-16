@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
@@ -62,24 +64,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         val searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
 
-        // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment =
-            childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+        search_places.setOnQueryTextFocusChangeListener { _, _ ->
+            searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
 
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) { // TODO: Get info about the selected place.
-                Timber.i("Place: ${place.name}, ${place.id}")
-            }
-
-            override fun onError(p0: Status) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
+//        search_places.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//            }
+//        })
     }
+
 
     override fun onMapReady(map: GoogleMap) {
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
