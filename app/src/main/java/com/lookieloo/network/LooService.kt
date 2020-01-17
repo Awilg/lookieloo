@@ -51,4 +51,3 @@ interface LooService {
 object LooApi {
 	val looService: LooService by lazy { retrofit.create(LooService::class.java) }
 }
-

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -62,6 +63,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
+//        homeViewModel.lastKnownLocation.observe(this, Observer {
+//            homeViewModel.
+//        })
+        homeViewModel.nearbyLoos.observe(this, Observer {
+            homeViewModel.drawLoosOnMap()
+        })
+
 //        search_places.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {
 //            }
@@ -71,12 +79,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 //        })
     }
 
-
     override fun onMapReady(map: GoogleMap) {
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
         homeViewModel.setMap(map)
         checkLocationPermission()
         getDeviceLocation()
+        homeViewModel.drawLoosOnMap()
     }
 
     override fun onRequestPermissionsResult(
