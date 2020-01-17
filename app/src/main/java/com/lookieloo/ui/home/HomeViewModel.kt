@@ -49,7 +49,6 @@ class HomeViewModel : ViewModel() {
                     map.addMarker(
                         MarkerOptions()
                             .position(loo.location)
-                            .title(loo.name)
                     )
                 }
             }

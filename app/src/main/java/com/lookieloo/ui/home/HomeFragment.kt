@@ -1,15 +1,14 @@
 package com.lookieloo.ui.home
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -17,7 +16,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
@@ -32,6 +30,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    private lateinit var detailBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var searchBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var createBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +59,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        val createLooBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
-        createLooBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        createBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
+        createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        val searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
+        searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
+
+        detailBottomSheetBehavior = BottomSheetBehavior.from(detailBottomSheet)
+        detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        detailBottomSheetBehavior.isFitToContents = true
 
         search_places.setOnQueryTextFocusChangeListener { _, _ ->
             searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -80,16 +87,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onMapReady(map: GoogleMap) {
         // Add the adapter for the custom markers
-        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-            override fun getInfoContents(p0: Marker?): View {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            @SuppressLint("InflateParams")
-            override fun getInfoWindow(p0: Marker?): View {
-                return layoutInflater.inflate(R.layout.map_marker_loo, null)
-            }
-        })
+        map.setOnMarkerClickListener {
+            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            true
+        }
 
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
         homeViewModel.setMap(map)
