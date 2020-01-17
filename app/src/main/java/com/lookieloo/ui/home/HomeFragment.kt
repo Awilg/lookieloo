@@ -1,6 +1,7 @@
 package com.lookieloo.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
@@ -77,6 +79,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onMapReady(map: GoogleMap) {
+        // Add the adapter for the custom markers
+        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+            override fun getInfoContents(p0: Marker?): View {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            @SuppressLint("InflateParams")
+            override fun getInfoWindow(p0: Marker?): View {
+                return layoutInflater.inflate(R.layout.map_marker_loo, null)
+            }
+        })
+
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
         homeViewModel.setMap(map)
         checkLocationPermission()
