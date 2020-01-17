@@ -72,6 +72,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
+        add_loo_button.setOnClickListener {
+            searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+
 //        homeViewModel.lastKnownLocation.observe(this, Observer {
 //            homeViewModel.
 //        })
