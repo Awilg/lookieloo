@@ -66,9 +66,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 //        homeViewModel.lastKnownLocation.observe(this, Observer {
 //            homeViewModel.
 //        })
-        homeViewModel.nearbyLoos.observe(this, Observer {
-            homeViewModel.drawLoosOnMap()
-        })
 
 //        search_places.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {
@@ -84,7 +81,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         homeViewModel.setMap(map)
         checkLocationPermission()
         getDeviceLocation()
-        homeViewModel.drawLoosOnMap()
     }
 
     override fun onRequestPermissionsResult(
