@@ -111,7 +111,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             locationResult.addOnCompleteListener(activity as Activity) { task ->
                 if (task.isSuccessful) {
                     homeViewModel.setLastKnownLocation(task.result as Location)
-                    homeViewModel.updateMap()
                 } else {
                     Timber.d("Current location is null. Using defaults.")
                     Timber.e("Exception: ${task.exception}")

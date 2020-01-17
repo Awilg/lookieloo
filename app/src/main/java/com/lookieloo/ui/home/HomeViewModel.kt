@@ -41,6 +41,7 @@ class HomeViewModel : ViewModel() {
     init {
         _lastKnownLocation.observeForever { location ->
             getNearbyLoos(location)
+            updateMap()
         }
         _nearbyLoos.observeForever { loos ->
             _map?.let { map ->
