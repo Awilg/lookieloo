@@ -16,4 +16,6 @@
     <string name="found_a_loo_that_we_haven_t">Found a Loo that we haven\'t?</string>
     <string name="add_it_here">add loo</string>
     <string name="detail">Detail</string>
+    <string name="description">Description</string>
+    <string name="describe_the_loo">Describe the Loo</string>
 </resources>
