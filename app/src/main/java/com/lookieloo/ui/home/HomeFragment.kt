@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,6 +20,8 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
+import com.lookieloo.utils.hideKeyboard
+import kotlinx.android.synthetic.main.create_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
@@ -68,11 +71,58 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         detailBottomSheetBehavior.isFitToContents = true
 
-        search_places.setOnQueryTextFocusChangeListener { _, _ ->
-            searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        search_places.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            //Toast.makeText(context, "Search focus $hasFocus", Toast.LENGTH_SHORT).show()
+            if (hasFocus) {
+                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            } else {
+                hideKeyboard()
+                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
         }
 
+        create_loo_description.setOnFocusChangeListener { _, hasFocus ->
+            //Toast.makeText(context, "create focus $hasFocus", Toast.LENGTH_SHORT).show()
+            if (hasFocus) {
+                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            } else {
+                hideKeyboard()
+                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
+
+        cancel_create_button.setOnClickListener {
+            hideKeyboard()
+            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+//        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+//
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+//                    createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+//                }
+//                val text = when (newState) {
+//                    BottomSheetBehavior.STATE_EXPANDED -> "STATE_EXPANDED"
+//                    BottomSheetBehavior.STATE_COLLAPSED -> "STATE_COLLAPSED"
+//                    BottomSheetBehavior.STATE_DRAGGING -> "STATE_DRAGGING"
+//                    BottomSheetBehavior.STATE_HALF_EXPANDED -> "STATE_HALF_EXPANDED"
+//                    BottomSheetBehavior.STATE_HIDDEN -> "STATE_HIDDEN"
+//                    BottomSheetBehavior.STATE_SETTLING -> "STATE_SETTLING"
+//                    else -> null
+//                }
+//                Toast.makeText(context, "Create Sheet: $text", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//
+//            }
+//        }
+//        createBottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
+
         add_loo_button.setOnClickListener {
+            hideKeyboard()
+            search_places.clearFocus()
             searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }

@@ -16,7 +16,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
-		android:id="@+id/createLooDescription"
+		android:id="@+id/create_loo_description"
 		android:layout_width="275dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="24dp"
@@ -33,7 +33,20 @@
 		android:layout_margin="16dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:layout_constraintTop_toBottomOf="@id/createLooDescription"/>
+		app:layout_constraintTop_toBottomOf="@id/create_loo_description"/>
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/cancel_create_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
+		android:text="@string/cancel"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/createLooButton"
+		app:layout_constraintTop_toBottomOf="@+id/createLooAttributes" />
 
 	<com.google.android.material.button.MaterialButton
 		android:id="@+id/createLooButton"
