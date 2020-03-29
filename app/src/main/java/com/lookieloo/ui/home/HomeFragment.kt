@@ -64,8 +64,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         createBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
         createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        createBottomSheetBehavior.isFitToContents = false
+        createBottomSheetBehavior.halfExpandedRatio = 0.50f
+        createBottomSheetBehavior.peekHeight = 0
+        createBottomSheetBehavior.skipCollapsed = true
 
         searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
+        searchBottomSheetBehavior.isFitToContents = false
+        searchBottomSheetBehavior.halfExpandedRatio = 0.47f
 
         detailBottomSheetBehavior = BottomSheetBehavior.from(detailBottomSheet)
         detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -77,6 +83,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {
                 hideKeyboard()
+                searchBottomSheetBehavior.setExpandedOffset(275)
                 searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
@@ -87,7 +94,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 createBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {
                 hideKeyboard()
-                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             }
         }
 
@@ -99,9 +106,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 //        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 //
 //            override fun onStateChanged(bottomSheet: View, newState: Int) {
-//                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-//                    createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-//                }
 //                val text = when (newState) {
 //                    BottomSheetBehavior.STATE_EXPANDED -> "STATE_EXPANDED"
 //                    BottomSheetBehavior.STATE_COLLAPSED -> "STATE_COLLAPSED"
@@ -111,7 +115,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 //                    BottomSheetBehavior.STATE_SETTLING -> "STATE_SETTLING"
 //                    else -> null
 //                }
-//                Toast.makeText(context, "Create Sheet: $text", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "state: $text", Toast.LENGTH_SHORT).show()
 //            }
 //
 //            override fun onSlide(bottomSheet: View, slideOffset: Float) {

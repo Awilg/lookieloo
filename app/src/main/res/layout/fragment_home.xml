@@ -19,9 +19,9 @@
         style="?attr/bottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_peekHeight="100dp"
+        app:behavior_peekHeight="80dp"
         app:behavior_skipCollapsed="true"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:layout_behavior=".ui.behaviors.LockableBottomSheetBehavior">
         <!-- Bottom Sheet contents -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,17 +39,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/filter_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/filter"
-                android:textSize="36sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_places" />
-
             <include
                 android:id="@+id/filter_buttons"
                 layout="@layout/button_filters"
@@ -60,7 +49,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_heading" />
+                app:layout_constraintTop_toBottomOf="@id/search_places" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/add_loo_text"
@@ -92,7 +81,6 @@
         style="?attr/bottomSheetStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_hideable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <include
