@@ -14,98 +14,98 @@
         tools:context="com.lookieloo.MainActivity"
         app:layout_behavior=".ui.behaviors.CollapseBehavior"/>
 
-    <FrameLayout
-        android:id="@+id/searchBottomSheet"
-        style="?attr/bottomSheetStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:behavior_peekHeight="80dp"
-        app:behavior_skipCollapsed="true"
-        app:layout_behavior=".ui.behaviors.LockableBottomSheetBehavior">
-        <!-- Bottom Sheet contents -->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/searchBottomSheet"-->
+<!--        style="?attr/bottomSheetStyle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:behavior_peekHeight="80dp"-->
+<!--        app:behavior_skipCollapsed="true"-->
+<!--        app:layout_behavior=".ui.behaviors.LockableBottomSheetBehavior">-->
+<!--        &lt;!&ndash; Bottom Sheet contents &ndash;&gt;-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_places"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:iconifiedByDefault="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/search_places"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                app:iconifiedByDefault="false"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <include
-                android:id="@+id/filter_buttons"
-                layout="@layout/button_filters"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_places" />
+<!--            <include-->
+<!--                android:id="@+id/filter_buttons"-->
+<!--                layout="@layout/button_filters"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/search_places" />-->
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/add_loo_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/found_a_loo_that_we_haven_t"
-                android:textSize="16sp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/filter_buttons" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/add_loo_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="32dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:text="@string/found_a_loo_that_we_haven_t"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="italic"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/filter_buttons" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/add_loo_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/add_it_here"
-                app:layout_constraintBaseline_toBaselineOf="@+id/add_loo_text"
-                app:layout_constraintStart_toEndOf="@id/add_loo_text" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/add_loo_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:text="@string/add_it_here"-->
+<!--                app:layout_constraintBaseline_toBaselineOf="@+id/add_loo_text"-->
+<!--                app:layout_constraintStart_toEndOf="@id/add_loo_text" />-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </FrameLayout>-->
 
-    <!--    Create a loo sheet -->
-    <FrameLayout
-        android:id="@+id/createLooBottomSheet"
-        style="?attr/bottomSheetStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+<!--    &lt;!&ndash;    Create a loo sheet &ndash;&gt;-->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/createLooBottomSheet"-->
+<!--        style="?attr/bottomSheetStyle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
 
-        <include
-            android:id="@+id/createLooSheetContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/create_bottom_sheet"/>
-    </FrameLayout>
+<!--        <include-->
+<!--            android:id="@+id/createLooSheetContent"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            layout="@layout/create_bottom_sheet"/>-->
+<!--    </FrameLayout>-->
 
-    <!--    Loo Detail Sheet-->
-    <FrameLayout
-        android:id="@+id/detailBottomSheet"
-        style="?attr/bottomSheetStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:behavior_skipCollapsed="true"
-        app:behavior_hideable="true"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+<!--    &lt;!&ndash;    Loo Detail Sheet&ndash;&gt;-->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/detailBottomSheet"-->
+<!--        style="?attr/bottomSheetStyle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:behavior_skipCollapsed="true"-->
+<!--        app:behavior_hideable="true"-->
+<!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
 
-        <include
-            android:id="@+id/filter_buttons"
-            layout="@layout/detail_bottom_sheet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+<!--        <include-->
+<!--            android:id="@+id/filter_buttons"-->
+<!--            layout="@layout/detail_bottom_sheet"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -20,4 +20,6 @@
     <string name="describe_the_loo">Describe the Loo</string>
     <string name="create">Create</string>
     <string name="cancel">cancel</string>
+    <string name="settings">Settings</string>
+    <string name="explore">Explore</string>
 </resources>

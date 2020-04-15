@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<TextView
+		android:id="@+id/createLoo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="24dp"
+		android:layout_marginTop="32dp"
+		android:text="@string/create_loo"
+		android:textSize="36sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/create_loo_description"
+		android:layout_width="275dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="24dp"
+		android:layout_marginTop="16dp"
+		android:importantForAutofill="no"
+		android:inputType="text"
+		android:hint="@string/describe_the_loo"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/createLoo" />
+
+	<include
+		android:id="@+id/createLooAttributes"
+		layout="@layout/button_filters"
+		android:layout_margin="16dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/create_loo_description"/>
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/cancel_create_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
+		android:text="@string/cancel"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/createLooButton"
+		app:layout_constraintTop_toBottomOf="@+id/createLooAttributes" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/createLooButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
+		android:text="@string/create"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/createLooAttributes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

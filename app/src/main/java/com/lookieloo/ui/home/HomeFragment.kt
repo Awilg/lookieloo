@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
 import com.lookieloo.utils.hideKeyboard
+import kotlinx.android.synthetic.main.button_filters.*
 import kotlinx.android.synthetic.main.create_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -62,46 +63,46 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        createBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
-        createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        createBottomSheetBehavior.isFitToContents = false
-        createBottomSheetBehavior.halfExpandedRatio = 0.50f
-        createBottomSheetBehavior.peekHeight = 0
-        createBottomSheetBehavior.skipCollapsed = true
-
-        searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
-        searchBottomSheetBehavior.isFitToContents = false
-        searchBottomSheetBehavior.halfExpandedRatio = 0.47f
-
-        detailBottomSheetBehavior = BottomSheetBehavior.from(detailBottomSheet)
-        detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        detailBottomSheetBehavior.isFitToContents = true
-
-        search_places.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            //Toast.makeText(context, "Search focus $hasFocus", Toast.LENGTH_SHORT).show()
-            if (hasFocus) {
-                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                hideKeyboard()
-                searchBottomSheetBehavior.setExpandedOffset(275)
-                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-        }
-
-        create_loo_description.setOnFocusChangeListener { _, hasFocus ->
-            //Toast.makeText(context, "create focus $hasFocus", Toast.LENGTH_SHORT).show()
-            if (hasFocus) {
-                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                hideKeyboard()
-                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-            }
-        }
-
-        cancel_create_button.setOnClickListener {
-            hideKeyboard()
-            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        }
+//        createBottomSheetBehavior = BottomSheetBehavior.from(createLooBottomSheet)
+//        createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//        createBottomSheetBehavior.isFitToContents = false
+//        createBottomSheetBehavior.halfExpandedRatio = 0.50f
+//        createBottomSheetBehavior.peekHeight = 0
+//        createBottomSheetBehavior.skipCollapsed = true
+//
+//        searchBottomSheetBehavior = BottomSheetBehavior.from(searchBottomSheet)
+//        searchBottomSheetBehavior.isFitToContents = false
+//        searchBottomSheetBehavior.halfExpandedRatio = 0.47f
+//
+//        detailBottomSheetBehavior = BottomSheetBehavior.from(detailBottomSheet)
+//        detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//        detailBottomSheetBehavior.isFitToContents = true
+//
+//        search_places.setOnQueryTextFocusChangeListener { _, hasFocus ->
+//            //Toast.makeText(context, "Search focus $hasFocus", Toast.LENGTH_SHORT).show()
+//            if (hasFocus) {
+//                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            } else {
+//                hideKeyboard()
+//                searchBottomSheetBehavior.setExpandedOffset(275)
+//                searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//            }
+//        }
+//
+//        create_loo_description.setOnFocusChangeListener { _, hasFocus ->
+//            //Toast.makeText(context, "create focus $hasFocus", Toast.LENGTH_SHORT).show()
+//            if (hasFocus) {
+//                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            } else {
+//                hideKeyboard()
+//                createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+//            }
+//        }
+//
+//        cancel_create_button.setOnClickListener {
+//            hideKeyboard()
+//            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//        }
 
 //        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 //
@@ -123,13 +124,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 //            }
 //        }
 //        createBottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
-
-        add_loo_button.setOnClickListener {
-            hideKeyboard()
-            search_places.clearFocus()
-            searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        }
+//
+//        add_loo_button.setOnClickListener {
+//            hideKeyboard()
+//            search_places.clearFocus()
+//            searchBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+//        }
+//
+//        filter_public.isCheckable = true
+//        filter_public.addOnCheckedChangeListener { button, isChecked ->
+//            Toast.makeText(context, "isChecked: $isChecked", Toast.LENGTH_SHORT).show()
+//        }
 
 //        homeViewModel.lastKnownLocation.observe(this, Observer {
 //            homeViewModel.
@@ -147,8 +153,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     override fun onMapReady(map: GoogleMap) {
         // Add the adapter for the custom markers
         map.setOnMarkerClickListener {
-            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+//            createBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//            detailBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             true
         }
 
