@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback{
 
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -27,6 +30,27 @@ class MainActivity : AppCompatActivity() {
         val placesClient = Places.createClient(this)
 
         hideSystemUI()
+    }
+
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean {
+        // Instantiate the new Fragment
+        val args = pref.extras
+        // Need to get the fragment manager of the child and not the nav host
+        val fragManager = supportFragmentManager.primaryNavigationFragment!!.childFragmentManager
+        val fragment = fragManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
+            arguments = args
+            setTargetFragment(caller, 0)
+        }
+        // Replace the existing Fragment with the new Fragment
+        fragManager.beginTransaction()
+            .replace(R.id.settings, fragment)
+            .addToBackStack(null)
+            .commit()
+        title = pref.title
+        return true
     }
 
     private fun hideSystemUI() {

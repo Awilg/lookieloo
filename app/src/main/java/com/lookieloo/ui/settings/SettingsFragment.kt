@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.lookieloo.R
+import com.lookieloo.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
 
@@ -14,6 +16,23 @@ class SettingsFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		return inflater.inflate(R.layout.fragment_settings, container, false)
+		val binding = FragmentSettingsBinding.inflate(inflater)
+
+		if (savedInstanceState == null) {
+			fragmentManager?.beginTransaction()?.replace(R.id.settings, PreferencesFragment())
+				?.commit()
+		}
+
+		// This callback will only be called when MyFragment is at least Started.
+		requireActivity().onBackPressedDispatcher.addCallback(this,
+			object : OnBackPressedCallback(true) {
+				override fun handleOnBackPressed() {
+					fragmentManager?.popBackStackImmediate()
+				}
+			})
+
+
+
+		return binding.root
 	}
 }
