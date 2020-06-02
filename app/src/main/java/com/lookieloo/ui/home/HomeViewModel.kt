@@ -74,7 +74,7 @@ class HomeViewModel : ViewModel() {
 
     fun setMap(map: GoogleMap) {
         _map = map.also {
-            it.setMinZoomPreference(15.0f)
+            it.setMinZoomPreference(10.0f)
             it.setMaxZoomPreference(19.0f)
         }
     }

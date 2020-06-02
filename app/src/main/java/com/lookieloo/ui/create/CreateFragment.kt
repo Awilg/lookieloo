@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.lookieloo.R
-import com.lookieloo.ui.filter.FilterViewModel
+import com.lookieloo.databinding.FragmentCreateBinding
 
 class CreateFragment : Fragment() {
 
@@ -23,6 +22,7 @@ class CreateFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		return inflater.inflate(R.layout.fragment_create, container, false)
+		val binding = FragmentCreateBinding.inflate(inflater)
+		return binding.root
 	}
 }
