@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.lookieloo.R
 import com.lookieloo.model.Loo
 import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
@@ -50,6 +52,7 @@ class HomeViewModel : ViewModel() {
                     map.addMarker(
                         MarkerOptions()
                             .position(loo.location)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_foreground))
                     )
                 }
             }
