@@ -2,12 +2,15 @@ package com.lookieloo.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.lookieloo.model.Loo
+import com.lookieloo.model.LooLocationRequest
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 
 // This is the local address for the emulator
@@ -40,8 +43,8 @@ interface LooService {
 	 * Returns a Coroutine [Deferred] of [User] which can be fetched with await() if
 	 * in a Coroutine scope.
 	 */
-	@GET("loo")
-	fun getLoos(): Deferred<List<Loo>>
+	@POST("loo/findNearby")
+	fun getNearbyLoos(@Body looLocationRequest: LooLocationRequest): Deferred<List<Loo>>
 }
 
 

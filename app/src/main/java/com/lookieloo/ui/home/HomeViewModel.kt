@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lookieloo.model.Loo
+import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
 import com.lookieloo.utils.testLoos
 import kotlinx.coroutines.CoroutineScope
@@ -58,13 +59,17 @@ class HomeViewModel : ViewModel() {
     private fun getNearbyLoos(loc: Location) {
         Timber.i("Getting nearby Loos....")
         coroutineScope.launch {
-            // Get the Deferred object for our Retrofit request
             // TODO (04) Add filter to getProperties() with filter.value
-            val getLoos = LooApi.looService.getLoos()
+            val getLoos = LooApi.looService.getNearbyLoos(
+                LooLocationRequest(
+                    latitude = loc.latitude,
+                    longitude = loc.longitude
+                )
+            )
             try {
                 // this will run on a thread managed by Retrofit
                 val listResult = getLoos.await()
-                //_treasureHuntsNearby.value = listResult
+                _nearbyLoos.value = listResult
             } catch (e: Exception) {
                 Timber.e("Network request failed with exception $e")
                 _nearbyLoos.value = testLoos

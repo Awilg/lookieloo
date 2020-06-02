@@ -9,6 +9,6 @@
 	<com.google.android.material.textview.MaterialTextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@{loo.name}"/>
+		android:text="@{loo.description}"/>
 
 </layout>
