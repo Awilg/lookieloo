@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.lookieloo.ui.create.CreateViewModel" />
+            type="com.lookieloo.ui.home.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -2,6 +2,7 @@ package com.lookieloo.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.lookieloo.model.Loo
+import com.lookieloo.model.LooCreateRequest
 import com.lookieloo.model.LooLocationRequest
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -43,6 +44,9 @@ interface LooService {
 	 * Returns a Coroutine [Deferred] of [User] which can be fetched with await() if
 	 * in a Coroutine scope.
 	 */
+	@POST("loo")
+	fun createLoo(@Body looCreateRequest: LooCreateRequest): Deferred<Loo>
+
 	@POST("loo/findNearby")
 	fun getNearbyLoos(@Body looLocationRequest: LooLocationRequest): Deferred<List<Loo>>
 }

@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
 import com.lookieloo.R
 import com.lookieloo.databinding.FragmentFilterBinding
+import com.lookieloo.ui.home.SharedViewModel
 
 class FilterFragment : Fragment() {
-    private lateinit var filterViewModel: FilterViewModel
-
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        filterViewModel = ViewModelProviders.of(this).get(FilterViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -23,6 +23,7 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFilterBinding.inflate(inflater)
+
         return binding.root
     }
 }

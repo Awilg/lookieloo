@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lookieloo.R
 import com.lookieloo.model.Loo
+import com.lookieloo.model.LooCreateRequest
 import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
 import com.lookieloo.utils.testLoos
@@ -23,7 +24,7 @@ import timber.log.Timber
 val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
 const val DEFAULT_ZOOM = 17F
 
-class HomeViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
 
     private var _map: GoogleMap? = null
 
@@ -42,6 +43,7 @@ class HomeViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
+        Timber.i("VIEWMODEL INIT....")
         _lastKnownLocation.observeForever { location ->
             getNearbyLoos(location)
             updateMap()
@@ -76,6 +78,24 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
                 Timber.e("Network request failed with exception $e")
                 _nearbyLoos.value = testLoos
+            }
+        }
+    }
+
+    fun createLoo(description : String){
+        _lastKnownLocation.value?.let {loc ->
+            coroutineScope.launch {
+                val getLoos = LooApi.looService.createLoo(
+                    LooCreateRequest(
+                        description = description,
+                        location = LatLng(loc.latitude, loc.longitude),
+                        attributes = emptySet())
+                )
+                try {
+                    getLoos.await()
+                } catch (e: Exception) {
+                    Timber.e("Network request failed with exception $e")
+                }
             }
         }
     }

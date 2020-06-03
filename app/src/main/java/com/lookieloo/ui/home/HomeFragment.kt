@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
@@ -20,10 +19,6 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.utils.RequestCodes
-import com.lookieloo.utils.hideKeyboard
-import kotlinx.android.synthetic.main.button_filters.*
-import kotlinx.android.synthetic.main.create_bottom_sheet.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -32,7 +27,7 @@ import timber.log.Timber
 class HomeFragment : Fragment(), OnMapReadyCallback,
     EasyPermissions.PermissionCallbacks {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var detailBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
@@ -42,7 +37,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -66,7 +60,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onMapReady(map: GoogleMap) {
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
-        homeViewModel.setMap(map)
+        sharedViewModel.setMap(map)
         checkLocationPermission()
         getDeviceLocation()
     }
@@ -98,11 +92,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             val locationResult = fusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener(activity as Activity) { task ->
                 if (task.isSuccessful) {
-                    homeViewModel.setLastKnownLocation(task.result as Location)
+                    sharedViewModel.setLastKnownLocation(task.result as Location)
                 } else {
                     Timber.d("Current location is null. Using defaults.")
                     Timber.e("Exception: ${task.exception}")
-                    homeViewModel.resetMap()
+                    sharedViewModel.resetMap()
                 }
             }
         } catch (e: SecurityException) {
