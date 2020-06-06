@@ -16,49 +16,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:context="com.lookieloo.MainActivity"/>
 
-    <com.lookieloo.ui.menu.AdvancedFabMenu
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/settings_fab"
+        android:layout_width="@dimen/fab_size_mini"
+        android:layout_height="@dimen/fab_size_mini"
+        android:src="@drawable/ic_settings_black_24dp"
+        android:layout_margin="@dimen/fab_margin_mini"
+        app:fabCustomSize="@dimen/fab_size_mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_fab"
+        android:layout_width="@dimen/fab_size_mini"
+        android:layout_height="@dimen/fab_size_mini"
+        android:src="@drawable/ic_filter_list_black_24dp"
+        android:layout_margin="@dimen/fab_margin_mini"
+        app:fabCustomSize="@dimen/fab_size_mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/filter_fab"
+        android:layout_width="@dimen/fab_size_mini"
+        android:layout_height="@dimen/fab_size_mini"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_margin="@dimen/fab_margin_mini"
+        app:fabCustomSize="@dimen/fab_size_mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
+        android:elevation="5dp"
+        app:srcCompat="@drawable/ic_menu_black_24dp"
+        android:layout_margin="@dimen/fab_margin_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu_type="radial">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/settings_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:src="@drawable/ic_settings_black_24dp"
-            app:fab_label="Settings"
-            app:fab_size="tiny"
-            tools:visibility="visible"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:src="@drawable/ic_filter_list_black_24dp"
-            app:fab_label="Filter"
-            app:fab_size="tiny"
-            tools:visibility="visible"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/filter_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:src="@drawable/ic_add_black_24dp"
-            android:contentDescription="@string/filter_loos"
-            android:layout_margin="16dp"
-            app:fab_label="Add"
-            app:fab_size="tiny"
-            tools:visibility="visible"/>
-
-    </com.lookieloo.ui.menu.AdvancedFabMenu>
-
-
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

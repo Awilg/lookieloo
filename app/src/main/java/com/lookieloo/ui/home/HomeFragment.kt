@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,10 +19,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.model.Loo
-import com.lookieloo.ui.menu.MenuInterface
 import com.lookieloo.utils.RequestCodes
 import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -37,6 +34,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    private var isFABOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,19 +59,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        fab_menu.setClosedOnTouchOutside(true)
-        val listener = object : MenuInterface {
-            override fun menuOpen() {
-                Toast.makeText(context, "Menu opened!", Toast.LENGTH_LONG).show()
+        fab_menu.setOnClickListener {
+            Toast.makeText(context, "Menu opened!", Toast.LENGTH_LONG).show()
+
+            if(!isFABOpen){
+                showFABMenu();
+            }else{
+                closeFABMenu();
             }
-
-            override fun menuClose() {
-                Toast.makeText(context, "Menu closed!", Toast.LENGTH_LONG).show()
-            }
-
-
         }
-        fab_menu.toggleListener = listener
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -150,6 +145,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 ).build()
             )
         }
+    }
+
+    private fun showFABMenu() {
+        isFABOpen=true
+        settings_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_55))
+        create_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_105))
+        filter_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_155))
+    }
+
+    private fun closeFABMenu() {
+        isFABOpen=false
+        filter_fab.animate().translationY(0f)
+        settings_fab.animate().translationY(0f)
+        create_fab.animate().translationY(0f)
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
