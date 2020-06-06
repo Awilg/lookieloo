@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
@@ -59,15 +60,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        fab_menu.setOnClickListener {
-            Toast.makeText(context, "Menu opened!", Toast.LENGTH_LONG).show()
-
-            if(!isFABOpen){
-                showFABMenu();
-            }else{
-                closeFABMenu();
-            }
-        }
+        setUpFabMenu()
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -147,11 +140,41 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         }
     }
 
+    private fun setUpFabMenu() {
+        isFABOpen = false
+        fab_menu.setOnClickListener {
+            if(!isFABOpen){
+                showFABMenu();
+            }else{
+                closeFABMenu();
+            }
+        }
+
+        settings_fab.setOnClickListener {
+            checkBackStack()
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
+        }
+        create_fab.setOnClickListener {
+            checkBackStack()
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateFragment())
+        }
+        filter_fab.setOnClickListener {
+            checkBackStack()
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToFilterFragment())
+        }
+    }
+
+    private fun checkBackStack() {
+        if (findNavController().currentDestination?.id != R.id.homeFragment) {
+            findNavController().popBackStack()
+        }
+    }
+
     private fun showFABMenu() {
         isFABOpen=true
-        settings_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_55))
-        create_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_105))
-        filter_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_155))
+        settings_fab.animate().translationY(-resources.getDimension(R.dimen.standard_55))
+        create_fab.animate().translationY(-resources.getDimension(R.dimen.standard_105))
+        filter_fab.animate().translationY(-resources.getDimension(R.dimen.standard_155))
     }
 
     private fun closeFABMenu() {

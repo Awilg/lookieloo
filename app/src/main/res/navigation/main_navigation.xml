@@ -13,11 +13,35 @@
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
-    </fragment>
+		<action
+			android:id="@+id/action_homeFragment_to_createFragment"
+			app:destination="@id/createFragment" />
+		<action
+			android:id="@+id/action_homeFragment_to_settingsFragment"
+			app:destination="@id/settingsFragment" />
+	</fragment>
 
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.lookieloo.ui.filter.FilterFragment"
         tools:layout="@layout/fragment_filter"
-        android:label="FilterFragment" />
+        android:label="FilterFragment"
+		app:popUpTo="@+id/main_navigation"
+		app:popUpToInclusive="true"/>
+
+	<fragment
+		android:id="@+id/createFragment"
+		android:name="com.lookieloo.ui.create.CreateFragment"
+		tools:layout="@layout/fragment_create"
+		android:label="CreateFragment"
+		app:popUpTo="@+id/main_navigation"
+		app:popUpToInclusive="true"/>
+
+	<fragment
+		android:id="@+id/settingsFragment"
+		android:name="com.lookieloo.ui.settings.SettingsFragment"
+		tools:layout="@layout/fragment_settings"
+		android:label="SettingsFragment"
+		app:popUpTo="@+id/main_navigation"
+		app:popUpToInclusive="true"/>
 </navigation>
