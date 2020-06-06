@@ -23,7 +23,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
 import com.lookieloo.model.Loo
+import com.lookieloo.ui.menu.MenuInterface
 import com.lookieloo.utils.RequestCodes
+import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -57,6 +59,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
+
+        fab_menu.setClosedOnTouchOutside(true)
+        val listener = object : MenuInterface {
+            override fun menuOpen() {
+                Toast.makeText(context, "Menu opened!", Toast.LENGTH_LONG).show()
+            }
+
+            override fun menuClose() {
+                Toast.makeText(context, "Menu closed!", Toast.LENGTH_LONG).show()
+            }
+
+
+        }
+        fab_menu.toggleListener = listener
     }
 
     override fun onMapReady(map: GoogleMap) {

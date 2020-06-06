@@ -24,4 +24,21 @@
 	<color name="icFocused">#DDFFFFFF</color>
 	<color name="icPressed">#AAFFFFFF</color>
 
+
+	<color name="fab_color_normal">#DA4336</color>
+	<color name="fab_color_pressed">#E75043</color>
+	<color name="fab_color_disabled">#AAAAAA</color>
+	<color name="fab_color_ripple">#99FFFFFF</color>
+	<color name="fab_shadow_color">#66000000</color>
+
+
+	<color name="fab_label_normal">#FF333333</color>
+	<color name="fab_label_pressed">#FF444444</color>
+	<color name="fab_label_ripple">#66FFFFFF</color>
+
+	<color name="fab_progress_color">#FF009688</color>
+	<color name="fab_background_color">#4D000000</color>
+
+
+	<color name="fab_reveal_color">#5B6A77</color>
 </resources>

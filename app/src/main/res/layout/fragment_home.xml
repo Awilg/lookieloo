@@ -1,111 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.lookieloo.MainActivity"
-        app:layout_behavior=".ui.behaviors.CollapseBehavior"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:context="com.lookieloo.MainActivity"/>
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/searchBottomSheet"-->
-<!--        style="?attr/bottomSheetStyle"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:behavior_peekHeight="80dp"-->
-<!--        app:behavior_skipCollapsed="true"-->
-<!--        app:layout_behavior=".ui.behaviors.LockableBottomSheetBehavior">-->
-<!--        &lt;!&ndash; Bottom Sheet contents &ndash;&gt;-->
+    <com.lookieloo.ui.menu.AdvancedFabMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu_type="radial">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/settings_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:src="@drawable/ic_settings_black_24dp"
+            app:fab_label="Settings"
+            app:fab_size="tiny"
+            tools:visibility="visible"/>
 
-<!--            <androidx.appcompat.widget.SearchView-->
-<!--                android:id="@+id/search_places"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                app:iconifiedByDefault="false"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:src="@drawable/ic_filter_list_black_24dp"
+            app:fab_label="Filter"
+            app:fab_size="tiny"
+            tools:visibility="visible"/>
 
-<!--            <include-->
-<!--                android:id="@+id/filter_buttons"-->
-<!--                layout="@layout/button_filters"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/search_places" />-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filter_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:src="@drawable/ic_add_black_24dp"
+            android:contentDescription="@string/filter_loos"
+            android:layout_margin="16dp"
+            app:fab_label="Add"
+            app:fab_size="tiny"
+            tools:visibility="visible"/>
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/add_loo_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="32dp"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:text="@string/found_a_loo_that_we_haven_t"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="italic"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/filter_buttons" />-->
+    </com.lookieloo.ui.menu.AdvancedFabMenu>
 
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/add_loo_button"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:text="@string/add_it_here"-->
-<!--                app:layout_constraintBaseline_toBaselineOf="@+id/add_loo_text"-->
-<!--                app:layout_constraintStart_toEndOf="@id/add_loo_text" />-->
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </FrameLayout>-->
 
-<!--    &lt;!&ndash;    Create a loo sheet &ndash;&gt;-->
-<!--    <FrameLayout-->
-<!--        android:id="@+id/createLooBottomSheet"-->
-<!--        style="?attr/bottomSheetStyle"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
-
-<!--        <include-->
-<!--            android:id="@+id/createLooSheetContent"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            layout="@layout/create_bottom_sheet"/>-->
-<!--    </FrameLayout>-->
-
-<!--    &lt;!&ndash;    Loo Detail Sheet&ndash;&gt;-->
-<!--    <FrameLayout-->
-<!--        android:id="@+id/detailBottomSheet"-->
-<!--        style="?attr/bottomSheetStyle"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:behavior_skipCollapsed="true"-->
-<!--        app:behavior_hideable="true"-->
-<!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
-
-<!--        <include-->
-<!--            android:id="@+id/filter_buttons"-->
-<!--            layout="@layout/detail_bottom_sheet"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--    </FrameLayout>-->
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
