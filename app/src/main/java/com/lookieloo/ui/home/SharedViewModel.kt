@@ -48,17 +48,6 @@ class SharedViewModel : ViewModel() {
             getNearbyLoos(location)
             updateMap()
         }
-        _nearbyLoos.observeForever { loos ->
-            _map?.let { map ->
-                loos.forEach { loo ->
-                    map.addMarker(
-                        MarkerOptions()
-                            .position(loo.location)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_foreground))
-                    )
-                }
-            }
-        }
     }
 
     private fun getNearbyLoos(loc: Location) {

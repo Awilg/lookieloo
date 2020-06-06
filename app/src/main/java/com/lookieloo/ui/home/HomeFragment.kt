@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -15,9 +16,13 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.lookieloo.R
+import com.lookieloo.model.Loo
 import com.lookieloo.utils.RequestCodes
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
@@ -25,15 +30,11 @@ import timber.log.Timber
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback,
+    GoogleMap.OnMarkerClickListener,
     EasyPermissions.PermissionCallbacks {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
-    private lateinit var detailBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
-    private lateinit var searchBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
-    private lateinit var createBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +60,30 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onMapReady(map: GoogleMap) {
+        // remove the direction buttons
+        map.uiSettings.isMapToolbarEnabled = false
+        map.uiSettings.isZoomControlsEnabled = false
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
         sharedViewModel.setMap(map)
+
+        // add markers for each
+        sharedViewModel.nearbyLoos.observeForever { loos ->
+            map.let { map ->
+                loos.forEach { loo ->
+                    val marker = map.addMarker(
+                        MarkerOptions()
+                            .position(loo.location)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_foreground))
+                    )
+                    marker.tag = loo
+                }
+            }
+        }
         checkLocationPermission()
         getDeviceLocation()
+
+        // Set a listener for marker click.
+        map.setOnMarkerClickListener(this);
     }
 
     override fun onRequestPermissionsResult(
@@ -113,5 +134,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
                 ).build()
             )
         }
+    }
+
+    override fun onMarkerClick(p0: Marker?): Boolean {
+        p0?.let {marker ->
+            Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
+        }
+        return true
     }
 }
