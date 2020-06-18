@@ -15,7 +15,7 @@ import retrofit2.http.POST
 
 
 // This is the local address for the emulator
-private const val BASE_URL = "http://10.0.2.2:8080/"
+private const val BASE_URL = "https://loo-svc-openeaphqa-uw.a.run.app/"
 
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for

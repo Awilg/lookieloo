@@ -20,6 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
 const val DEFAULT_ZOOM = 17F
@@ -41,6 +43,12 @@ class SharedViewModel : ViewModel() {
 
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+
+    // Filters
+    private val _filters = MutableLiveData<List<String>>()
+    val filters: LiveData<List<String>>
+        get() = _filters
 
     init {
         Timber.i("VIEWMODEL INIT....")
@@ -115,5 +123,16 @@ class SharedViewModel : ViewModel() {
 
     fun resetMap() {
         _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+    }
+
+    fun updateFilters(text: CharSequence, isChecked: Boolean) {
+        if (_filters.value == null) {
+            _filters.value = ArrayList()
+        }
+        if (isChecked) {
+            _filters.value = _filters.value?.plus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
+        } else {
+            _filters.value = _filters.value?.minus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
+        }
     }
 }

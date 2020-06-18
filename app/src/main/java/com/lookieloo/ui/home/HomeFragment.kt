@@ -172,9 +172,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     private fun showFABMenu() {
         isFABOpen=true
-        settings_fab.animate().translationY(-resources.getDimension(R.dimen.standard_55))
+        settings_fab.animate().translationY(-resources.getDimension(R.dimen.standard_155))
         create_fab.animate().translationY(-resources.getDimension(R.dimen.standard_105))
-        filter_fab.animate().translationY(-resources.getDimension(R.dimen.standard_155))
+        filter_fab.animate().translationY(-resources.getDimension(R.dimen.standard_55))
     }
 
     private fun closeFABMenu() {
