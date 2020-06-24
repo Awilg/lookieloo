@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lookieloo.R
+import com.lookieloo.databinding.FragmentHomeBinding
 import com.lookieloo.model.Loo
 import com.lookieloo.utils.RequestCodes
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -35,6 +37,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var homeBinding: FragmentHomeBinding
 
     private var isFABOpen = false
 
@@ -47,7 +50,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        homeBinding = FragmentHomeBinding.inflate(inflater)
+        homeBinding.viewmodel = sharedViewModel
+        homeBinding.lifecycleOwner = this
+        return homeBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -186,6 +192,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onMarkerClick(p0: Marker?): Boolean {
         p0?.let {marker ->
+            val loo = marker.tag as Loo
+            val v = view?.findViewById<View>(R.id.loo_card_holder)
+            v?.visibility = View.VISIBLE
+            sharedViewModel.setCurrentLoo(loo)
             Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
         }
         return true

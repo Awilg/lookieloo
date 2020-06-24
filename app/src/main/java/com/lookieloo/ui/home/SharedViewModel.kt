@@ -44,6 +44,10 @@ class SharedViewModel : ViewModel() {
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    // Currently selected Loo
+    private val _currentSelectedLoo = MutableLiveData<Loo>()
+    val currentSelectedLoo: LiveData<Loo>
+        get() = _currentSelectedLoo
 
     // Filters
     private val _filters = MutableLiveData<List<String>>()
@@ -134,5 +138,9 @@ class SharedViewModel : ViewModel() {
         } else {
             _filters.value = _filters.value?.minus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
         }
+    }
+
+    fun setCurrentLoo(loo: Loo) {
+        _currentSelectedLoo.value = loo
     }
 }
