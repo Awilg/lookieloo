@@ -8,6 +8,7 @@
         <variable
             name="viewmodel"
             type="com.lookieloo.ui.home.SharedViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,11 +51,12 @@
                 app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeColor="@color/selector_edittext_underline"
-                app:shapeApphearance="@style/lookielooSearchBar"
+                app:shapeAppearance="@style/lookielooSearchBar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:hint="@string/search">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search_bar_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/selector_search_bar"/>
@@ -71,8 +73,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:src="@drawable/ic_menu_black_24dp"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintTop_toBottomOf="@id/search_bar"
+                app:layout_constraintStart_toStartOf="@id/search_bar"
+                app:layout_constraintEnd_toEndOf="@id/search_bar"/>
+
 
             <HorizontalScrollView
+                android:id="@+id/horizontal_filters_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
