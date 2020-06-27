@@ -9,7 +9,7 @@
 		<item name="colorSecondaryVariant">@color/color_secondary_variant</item>
 
 
-		<item name="colorSurface">@color/color_surface</item>
+		<item name="colorSurface">@color/color_background</item>
 		<item name="colorError">@color/color_error</item>
 
 		<item name="colorOnPrimary">@color/color_on_primary</item>
@@ -25,6 +25,7 @@
 		<item name="android:windowLightStatusBar">true</item>
 
 		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="shapeAppearanceSmallComponent">@style/lookielooButtonSmallComponent</item>
 
 		<!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
 		<item name="colorPrimaryDark">?colorPrimaryVariant</item>
@@ -32,10 +33,31 @@
 	</style>
 
 	<style name="LookielooFilterButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-		<item name="android:textColor">@color/color_primary</item>
-		<item name="strokeColor">@color/color_primary</item>
-		<item name="android:layout_marginStart">4dp</item>
+		<item name="android:textColor">#2B2B2B</item>
+		<item name="strokeColor">@color/color_background</item>
+		<item name="backgroundTint">@color/color_background</item>
+		<item name="elevation">16dp</item>
 		<item name="android:layout_marginEnd">4dp</item>
+<!--		<item name="android:scaleX">.7</item>-->
+<!--		<item name="android:scaleY">.7</item>-->
 	</style>
 
+	<style name="lookielooButtonSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">50%</item>
+		<item name="android:textSize">12sp</item>
+
+	</style>
+
+	<style name="lookielooSearchBar" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+		<item name="android:shape">rectangle</item>
+		<item name="android:radius">5dp</item>
+	</style>
+
+
+	<style name="searchBarTextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+		<item name="colorControlNormal">@color/color_dark_grey</item>
+		<item name="colorControlActivated">@color/color_dark_grey</item>
+		<item name="colorControlHighlight">@color/color_dark_grey</item>
+	</style>
 </resources>

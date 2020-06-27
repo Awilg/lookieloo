@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/horizontalScrollView">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_clean1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:checkable="true"
+                android:text="@string/clean" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_handicap1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/accessible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_public1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/public_filter" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_mixed_gender1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/mixed_gender" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_baby1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/baby_friendly" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_shared1"
+                style="@style/LookielooFilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/shared" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>

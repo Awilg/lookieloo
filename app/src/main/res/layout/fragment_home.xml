@@ -21,20 +21,129 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:context="com.lookieloo.MainActivity" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:paddingTopSystemWindowInsets="@{true}">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_bar"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="60dp"
+                android:textColorHint="@color/selector_search_bar"
+                android:theme="@style/searchBarTextInputLayoutAppearance"
+                app:hintTextColor="@color/selector_search_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="@color/selector_edittext_underline"
+                app:shapeApphearance="@style/lookielooSearchBar"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:hint="@string/search">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/selector_search_bar"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/search_bar"
+                app:layout_constraintTop_toTopOf="@id/search_bar"
+                app:layout_constraintBottom_toBottomOf="@id/search_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_menu_black_24dp"/>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_bar">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_clean1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:checkable="true"
+                        android:text="@string/clean" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_handicap1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="@string/accessible" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_public1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="@string/public_filter" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_mixed_gender1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="@string/mixed_gender" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_baby1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="@string/baby_friendly" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/filter_shared1"
+                        style="@style/LookielooFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="@string/shared" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loo_card_holder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center"
-            android:visibility="gone"
+            android:layout_height="match_parent"
             app:paddingTopSystemWindowInsets="@{true}">
 
             <com.google.android.material.card.MaterialCardView
@@ -42,7 +151,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="15dp">
+                android:visibility="gone"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -61,16 +174,113 @@
                         android:maxLines="1"
                         android:text="@{viewmodel.currentSelectedLoo.description}"
                         android:textSize="21sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Treasure Hunt Name" />
 
+                    <LinearLayout
+                        android:id="@+id/loo_filter_button_top_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/loo_title">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_clean"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="3dp"
+                            android:checkable="true"
+                            android:text="@string/clean" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_handicap"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/accessible" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_public"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/public_filter" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/loo_filter_button_middle_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/loo_filter_button_top_row">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_mixed_gender"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/mixed_gender" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_baby"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/baby_friendly" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_shared"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/shared" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/loo_filter_button_bottom_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/loo_filter_button_middle_row">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_air_dryer"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/air_dryer" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/filter_lighting"
+                            style="@style/LookielooFilterButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="true"
+                            android:text="@string/good_lighting" />
+
+                    </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/settings_fab"

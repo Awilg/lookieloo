@@ -19,6 +19,7 @@
 	<color name="color_on_surface">#ffffff</color>
 	<color name="color_on_error">#000000</color>
 
+	<color name="color_dark_grey">#2B2B2B</color>
 	// Camera colors
 	<color name="icActive">#FFFFFFFF</color>
 	<color name="icFocused">#DDFFFFFF</color>
