@@ -125,6 +125,14 @@ class SharedViewModel : ViewModel() {
         }
     }
 
+    fun moveMapToLocation(loc :LatLng) {
+        _map?.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                loc, DEFAULT_ZOOM
+            )
+        )
+    }
+
     fun resetMap() {
         _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
     }

@@ -307,7 +307,12 @@ PlacePredictionAdapter.OnPlaceClickListener{
                 // Use Gson to convert the response JSON object to a POJO
                 val result: GeocodingResult = gson.fromJson(results.getString(0), GeocodingResult::class.java)
 
-                // TODO move camera to latlng
+                homeBinding.searchBar.search_bar_edittext.clearFocus()
+                adapter.setPredictions(emptyList())
+
+                result.geometry?.location?.let {
+                    sharedViewModel.moveMapToLocation(it)
+                }
             } catch (e: JSONException) {
                 Timber.i("TEST FAIL REQUEST!")
                 e.printStackTrace()
