@@ -35,10 +35,13 @@
 	<style name="LookielooFilterButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
 		<item name="android:textColor">#2B2B2B</item>
 		<item name="strokeColor">@color/color_background</item>
-		<item name="backgroundTint">@color/color_background</item>
+		<item name="backgroundTint">@color/selector_filter_button</item>
 		<item name="elevation">16dp</item>
 		<item name="android:layout_marginEnd">4dp</item>
 		<item name="android:textAllCaps">false</item>
+		<item name="android:checkable">true</item>
+		<item name="rippleColor">@color/colorPrimary</item>
+
 <!--		<item name="android:scaleX">.7</item>-->
 <!--		<item name="android:scaleY">.7</item>-->
 	</style>

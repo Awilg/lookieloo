@@ -8,7 +8,6 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -33,6 +32,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.*
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.material.button.MaterialButton
 import com.google.gson.GsonBuilder
 import com.lookieloo.R
 import com.lookieloo.databinding.FragmentHomeBinding
@@ -52,6 +52,7 @@ import timber.log.Timber
 class HomeFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
     EasyPermissions.PermissionCallbacks,
+    MaterialButton.OnCheckedChangeListener,
 PlacePredictionAdapter.OnPlaceClickListener{
 
     private val handler = Handler()
@@ -65,8 +66,6 @@ PlacePredictionAdapter.OnPlaceClickListener{
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
     private lateinit var homeBinding: FragmentHomeBinding
-
-    private var isFABOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,6 +125,13 @@ PlacePredictionAdapter.OnPlaceClickListener{
         setUpFabMenu()
         initRecyclerView()
         setupFocusListenersUI(homeBinding.root)
+
+        homeBinding.horizontalFiltersBar.filter_baby1.addOnCheckedChangeListener(this)
+        homeBinding.horizontalFiltersBar.filter_clean1.addOnCheckedChangeListener(this)
+        homeBinding.horizontalFiltersBar.filter_public1.addOnCheckedChangeListener(this)
+        homeBinding.horizontalFiltersBar.filter_shared1.addOnCheckedChangeListener(this)
+        homeBinding.horizontalFiltersBar.filter_handicap1.addOnCheckedChangeListener(this)
+        homeBinding.horizontalFiltersBar.filter_mixed_gender1.addOnCheckedChangeListener(this)
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -217,26 +223,9 @@ PlacePredictionAdapter.OnPlaceClickListener{
 
 
     private fun setUpFabMenu() {
-        isFABOpen = false
-        fab_menu.setOnClickListener {
-            if(!isFABOpen){
-                showFABMenu();
-            }else{
-                closeFABMenu();
-            }
-        }
-
-        settings_fab.setOnClickListener {
-            checkBackStack()
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
-        }
         create_fab.setOnClickListener {
             checkBackStack()
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateFragment())
-        }
-        filter_fab.setOnClickListener {
-            checkBackStack()
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToFilterFragment())
         }
     }
 
@@ -246,19 +235,6 @@ PlacePredictionAdapter.OnPlaceClickListener{
         }
     }
 
-    private fun showFABMenu() {
-        isFABOpen=true
-        settings_fab.animate().translationY(-resources.getDimension(R.dimen.standard_155))
-        create_fab.animate().translationY(-resources.getDimension(R.dimen.standard_105))
-        filter_fab.animate().translationY(-resources.getDimension(R.dimen.standard_55))
-    }
-
-    private fun closeFABMenu() {
-        isFABOpen=false
-        filter_fab.animate().translationY(0f)
-        settings_fab.animate().translationY(0f)
-        create_fab.animate().translationY(0f)
-    }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
         p0?.let {marker ->
@@ -365,6 +341,12 @@ PlacePredictionAdapter.OnPlaceClickListener{
                 val innerView = view.getChildAt(i)
                 setupFocusListenersUI(innerView)
             }
+        }
+    }
+
+    override fun onCheckedChanged(button: MaterialButton?, isChecked: Boolean) {
+        button?.let {
+            sharedViewModel.updateFilters(button.text, isChecked)
         }
     }
 }

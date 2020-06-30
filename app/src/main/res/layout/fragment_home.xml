@@ -294,16 +294,6 @@
             </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/settings_fab"
-            android:layout_width="@dimen/fab_size_mini"
-            android:layout_height="@dimen/fab_size_mini"
-            android:layout_margin="@dimen/fab_margin_mini"
-            android:src="@drawable/ic_settings_black_24dp"
-            app:fabCustomSize="@dimen/fab_size_mini"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_fab"
@@ -316,27 +306,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/filter_fab"
-            android:layout_width="@dimen/fab_size_mini"
-            android:layout_height="@dimen/fab_size_mini"
-            android:layout_margin="@dimen/fab_margin_mini"
-            android:src="@drawable/ic_filter_list_black_24dp"
-            app:fabCustomSize="@dimen/fab_size_mini"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin_normal"
-            android:elevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_menu_black_24dp"
-            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
