@@ -23,7 +23,7 @@ import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
-val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
+val DEFAULT_LOCATION = LatLng(37.4219999,-122.0862462)
 const val DEFAULT_ZOOM = 17F
 
 class SharedViewModel : ViewModel() {

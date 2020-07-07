@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -53,7 +55,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
     EasyPermissions.PermissionCallbacks,
     MaterialButton.OnCheckedChangeListener,
-PlacePredictionAdapter.OnPlaceClickListener{
+PlacePredictionAdapter.OnPlaceClickListener,
+    GoogleMap.OnMyLocationButtonClickListener,
+    GoogleMap.OnMyLocationClickListener{
 
     private val handler = Handler()
 
@@ -92,6 +96,24 @@ PlacePredictionAdapter.OnPlaceClickListener{
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
+        val myLocationButton =
+            mapFragment?.view!!.findViewById<View>(2)
+
+        if (myLocationButton != null && myLocationButton.layoutParams is RelativeLayout.LayoutParams) {
+            // location button is inside of RelativeLayout
+            val params = myLocationButton.layoutParams as RelativeLayout.LayoutParams
+
+            // Align it to - parent BOTTOM|LEFT
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0)
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+
+            params.setMargins(10, 10, 10, 10)
+            myLocationButton.layoutParams = params
+        }
+
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
@@ -155,8 +177,12 @@ PlacePredictionAdapter.OnPlaceClickListener{
             }
         }
 
+        map.isMyLocationEnabled = true
+        map.setOnMyLocationButtonClickListener(this)
+        map.setOnMyLocationClickListener(this)
+
         checkLocationPermission()
-        getDeviceLocation()
+        //getDeviceLocation()
 
         // Set a listener for marker click.
         map.setOnMarkerClickListener(this);
@@ -188,7 +214,7 @@ PlacePredictionAdapter.OnPlaceClickListener{
         try {
             val locationResult = fusedLocationProviderClient.lastLocation
             locationResult.addOnCompleteListener(activity as Activity) { task ->
-                if (task.isSuccessful) {
+                if (task.isSuccessful && task.result != null) {
                     sharedViewModel.setLastKnownLocation(task.result as Location)
                 } else {
                     Timber.d("Current location is null. Using defaults.")
@@ -353,5 +379,16 @@ PlacePredictionAdapter.OnPlaceClickListener{
         button?.let {
             sharedViewModel.updateFilters(button.text, isChecked)
         }
+    }
+
+    override fun onMyLocationClick(location: Location) {
+        Toast.makeText(context, "Current location:\n$location", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onMyLocationButtonClick(): Boolean {
+        Toast.makeText(context, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false
     }
 }
