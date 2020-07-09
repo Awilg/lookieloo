@@ -1,6 +1,7 @@
 package com.lookieloo.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
@@ -41,6 +42,7 @@ import com.lookieloo.databinding.FragmentHomeBinding
 import com.lookieloo.model.GeocodingResult
 import com.lookieloo.model.Loo
 import com.lookieloo.utils.RequestCodes
+import com.lookieloo.utils.Utils.dpToPx
 import com.lookieloo.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -90,6 +92,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
         return homeBinding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -105,12 +108,12 @@ PlacePredictionAdapter.OnPlaceClickListener,
             val params = myLocationButton.layoutParams as RelativeLayout.LayoutParams
 
             // Align it to - parent BOTTOM|LEFT
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0)
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
 
-            params.setMargins(10, 10, 10, 10)
+            // TODO: adjust for insets here
+            params.setMargins(0, view.dpToPx(150f), 0, 0)
             myLocationButton.layoutParams = params
         }
 
