@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MavericksView
 import com.airbnb.mvrx.activityViewModel
@@ -42,7 +43,7 @@ class CreateFragmentV2 : Fragment(), MavericksView {
             createTextInputRow {
                 id("titleTextEdit")
                 text(state.title)
-                hint("Walmart on Pine and 15th")
+                hint("e.g. Walmart on Pine and 15th")
                 onEditTextChanged { viewModel.updateLooTitle(it) }
             }
             createSectionHeader {
@@ -52,7 +53,7 @@ class CreateFragmentV2 : Fragment(), MavericksView {
             createTextInputRow {
                 id("descTextEdit")
                 text(state.description)
-                hint("Clean bathroom in the back of walmart. No purchase necessary and good lighting.")
+                hint("e.g. Clean bathroom in the back of walmart. No purchase necessary and good lighting.")
                 onEditTextChanged { viewModel.updateLooDescription(it) }
             }
             createSectionHeader {
@@ -62,6 +63,11 @@ class CreateFragmentV2 : Fragment(), MavericksView {
             buttonOutlined {
                 id("selectOnMapBtn")
                 buttonText("Select on map")
+                onclick { _ ->
+                    findNavController().navigate(
+                        CreateFragmentV2Directions.actionCreateFragmentV2ToLocationSelectFragment()
+                    )
+                }
             }
             createSectionHeader {
                 id("filterHeader")
