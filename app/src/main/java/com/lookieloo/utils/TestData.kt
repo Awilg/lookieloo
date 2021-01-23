@@ -6,8 +6,8 @@ import com.lookieloo.ui.model.Filter
 import com.lookieloo.ui.model.FilterType
 
 val testLoos = listOf(
-	Loo(LatLng(47.6062, -122.3321), description ="first", id = "id-1"),
-	Loo(LatLng(47.62, -122.34), description = "second", id = "id-2")
+	Loo(LatLng(47.6062, -122.3321), description = "first", id = "id-1", title = "title1"),
+	Loo(LatLng(47.62, -122.34), description = "second", id = "id-2", title = "title2")
 )
 
 val testFilters = listOf(

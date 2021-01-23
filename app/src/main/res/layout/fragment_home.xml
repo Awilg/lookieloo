@@ -71,156 +71,24 @@
                 app:layout_constraintEnd_toEndOf="@id/search_bar" />
 
             <com.airbnb.epoxy.EpoxyRecyclerView
-                android:id="@+id/epoxy_recycler_view"
+                android:id="@+id/filter_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/loo_card_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:paddingTopSystemWindowInsets="@{true}">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/loo_detail_card"
-                android:layout_width="wrap_content"
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/loo_recycler_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:visibility="gone"
-                app:cardCornerRadius="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginBottom="@dimen/margin_32"
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_background">
-
-                    <TextView
-                        android:id="@+id/loo_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="3dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{viewmodel.currentSelectedLoo.description}"
-                        android:textSize="21sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Treasure Hunt Name" />
-
-                    <LinearLayout
-                        android:id="@+id/loo_filter_button_top_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/loo_title">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_clean"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="3dp"
-                            android:checkable="true"
-                            android:text="@string/clean" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_handicap"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/accessible" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_public"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/public_filter" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/loo_filter_button_middle_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/loo_filter_button_top_row">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_mixed_gender"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/mixed_gender" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_baby"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/baby_friendly" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_shared"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/shared" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/loo_filter_button_bottom_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/loo_filter_button_middle_row">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_air_dryer"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/air_dryer" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/filter_lighting"
-                            style="@style/LookielooFilterButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/good_lighting" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

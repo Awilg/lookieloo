@@ -42,10 +42,13 @@
 		<item name="android:checkable">true</item>
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">50%</item>
-		<item name="iconSize">20dp</item>
+		<item name="iconSize">15dp</item>
+		<item name="android:layout_marginEnd">4dp</item>
+	</style>
 
-		<!--		<item name="android:scaleX">.7</item>-->
-		<!--		<item name="android:scaleY">.7</item>-->
+	<style name="LookielooFilterButtonTiny" parent="LookielooFilterButton">
+		<item name="iconSize">12dp</item>
+		<item name="android:textSize">12sp</item>
 	</style>
 
 	<style name="lookielooButtonSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">

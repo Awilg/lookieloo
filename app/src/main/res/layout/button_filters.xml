@@ -2,14 +2,14 @@
 <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/button_flexbox"
-	android:layout_marginStart="@dimen/margin_24"
+	android:paddingLeft="@dimen/margin_24"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	app:flexWrap="wrap">
 
 	<com.google.android.material.button.MaterialButton
 		android:id="@+id/filter_clean"
-		style="@style/LookielooFilterButton"
+		style="@style/LookielooFilterButtonTiny"
 		app:icon="@drawable/ic_icons8_broom_50"
 		android:checkable="true"
 		android:layout_width="wrap_content"
@@ -17,35 +17,36 @@
 		android:text="@string/clean" />
 
 	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_mixed_gender"
+		style="@style/LookielooFilterButtonTiny"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:checkable="true"
+		android:text="@string/mixed_gender"
+		app:icon="@drawable/ic_icons8_toilet_50" />
+
+	<com.google.android.material.button.MaterialButton
+		android:id="@+id/filter_public"
+		style="@style/LookielooFilterButtonTiny"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:checkable="true"
+		android:text="@string/public_filter"
+		app:icon="@drawable/ic_icons8_padlock_50" />
+
+	<com.google.android.material.button.MaterialButton
 		android:id="@+id/filter_handicap"
-		style="@style/LookielooFilterButton"
+		style="@style/LookielooFilterButtonTiny"
 		app:icon="@drawable/ic_icons8_assistive_technology_50"
 		android:checkable="true"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/accessible" />
 
-	<com.google.android.material.button.MaterialButton
-		android:id="@+id/filter_public"
-		style="@style/LookielooFilterButton"
-		app:icon="@drawable/ic_icons8_padlock_50"
-		android:checkable="true"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/public_filter" />
-
-	<com.google.android.material.button.MaterialButton
-		android:id="@+id/filter_mixed_gender"
-		app:icon="@drawable/ic_icons8_toilet_50"
-		style="@style/LookielooFilterButton"
-		android:checkable="true"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/mixed_gender" />
 
 	<com.google.android.material.button.MaterialButton
 		android:id="@+id/filter_baby"
-		style="@style/LookielooFilterButton"
+		style="@style/LookielooFilterButtonTiny"
 		app:icon="@drawable/ic_icons8_stroller_50"
 		android:checkable="true"
 		android:layout_width="wrap_content"

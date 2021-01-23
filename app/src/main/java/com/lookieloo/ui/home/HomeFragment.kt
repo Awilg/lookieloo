@@ -46,6 +46,7 @@ import com.lookieloo.databinding.FragmentHomeBinding
 import com.lookieloo.model.GeocodingResult
 import com.lookieloo.model.Loo
 import com.lookieloo.ui.model.FilterModel_
+import com.lookieloo.ui.model.LooModel_
 import com.lookieloo.ui.shared.withModelsFrom
 import com.lookieloo.utils.RequestCodes
 import com.lookieloo.utils.checkFineLocation
@@ -66,7 +67,8 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     GoogleMap.OnMyLocationClickListener {
 
     private lateinit var homeBinding: FragmentHomeBinding
-    private lateinit var epoxyRecyclerView: EpoxyRecyclerView
+    private lateinit var filterRecyclerView: EpoxyRecyclerView
+    private lateinit var looRecyclerView: EpoxyRecyclerView
     private val sharedViewModel: SharedViewModel by activityViewModel()
 
     private val handler = Handler()
@@ -98,10 +100,11 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         homeBinding.viewmodel = sharedViewModel
         homeBinding.lifecycleOwner = this
 
-        epoxyRecyclerView = homeBinding.epoxyRecyclerView
-        epoxyRecyclerView.setController(simpleController(sharedViewModel) { state ->
+        filterRecyclerView = homeBinding.filterRecyclerView
+        looRecyclerView = homeBinding.looRecyclerView
+        filterRecyclerView.setController(simpleController(sharedViewModel) { state ->
             carousel {
-                id("carousel")
+                id("filterCarousel")
                 padding(Carousel.Padding.dp(24, 0, 24, 0, 8))
                 setDefaultGlobalSnapHelperFactory(null)
 
@@ -113,7 +116,20 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                 }
             }
         })
-        epoxyRecyclerView.requestModelBuild()
+        looRecyclerView.setController(simpleController(sharedViewModel) { state ->
+            carousel {
+                id("looCarousel")
+                padding(Carousel.Padding.dp(24, 0, 24, 0, 8))
+
+                withModelsFrom(state.loos) {
+                    LooModel_()
+                        .id(it.id)
+                        .loo(it)
+                }
+            }
+        })
+        filterRecyclerView.requestModelBuild()
+        looRecyclerView.requestModelBuild()
 
         return homeBinding.root
     }
@@ -165,10 +181,10 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
 
         homeBinding.searchBarEdittext.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                homeBinding.epoxyRecyclerView.visibility = View.GONE
+                homeBinding.filterRecyclerView.visibility = View.GONE
             } else {
                 homeBinding.searchBarEdittext.setText("")
-                homeBinding.epoxyRecyclerView.visibility = View.VISIBLE
+                homeBinding.filterRecyclerView.visibility = View.VISIBLE
             }
         }
 
@@ -406,6 +422,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
     override fun invalidate() {
-        epoxyRecyclerView.requestModelBuild()
+        filterRecyclerView.requestModelBuild()
+        looRecyclerView.requestModelBuild()
     }
 }
