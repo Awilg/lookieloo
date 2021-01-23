@@ -83,6 +83,9 @@ class CreateFragmentV2 : Fragment(), MavericksView {
                 filters(state.filters)
                 onFilterCallback { filter, enabled -> viewModel.updateFilter(filter, enabled) }
             }
+            emptySpace {
+                id("bottomBtnSpace")
+            }
         })
         recyclerView.requestModelBuild()
         recyclerView.setItemSpacingDp(12)
