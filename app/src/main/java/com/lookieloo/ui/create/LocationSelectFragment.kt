@@ -43,6 +43,10 @@ class LocationSelectFragment : Fragment(), MavericksView, OnMapReadyCallback, Ea
             )
         }
 
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
         val mapFragment =
