@@ -7,6 +7,7 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.lookieloo.ui.model.Filter
 
 class CreateViewModelV2(initialState: CreateStateV2) :
     MavericksViewModel<CreateStateV2>(initialState) {
@@ -69,5 +70,15 @@ class CreateViewModelV2(initialState: CreateStateV2) :
     fun saveLocation() {
         val latlng = _locationMap?.cameraPosition?.target
         setState { copy(location = latlng) }
+    }
+
+    fun updateFilter(f: Filter, enabled: Boolean) {
+        setState {
+            copy(filters = filters.map {
+                if (it == f) {
+                    f.copy(enabled = enabled)
+                } else it
+            })
+        }
     }
 }

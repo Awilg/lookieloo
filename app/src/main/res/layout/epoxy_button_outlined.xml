@@ -18,9 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_24"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/margin_24"
-        android:layout_marginBottom="8dp"
         android:onClick="@{onclick}"
         android:text="@{buttonText}"
         tools:text="Continue" />

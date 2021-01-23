@@ -18,7 +18,6 @@
             android:id="@+id/create_text_section_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="@dimen/margin_24"
             android:layout_marginEnd="@dimen/margin_24"
             app:layout_constraintStart_toStartOf="parent"

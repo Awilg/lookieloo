@@ -11,6 +11,7 @@ import com.airbnb.mvrx.MavericksView
 import com.airbnb.mvrx.activityViewModel
 import com.lookieloo.*
 import com.lookieloo.databinding.FragmentCreateV2Binding
+import com.lookieloo.ui.model.filters
 import com.lookieloo.utils.simpleController
 
 class CreateFragmentV2 : Fragment(), MavericksView {
@@ -31,6 +32,7 @@ class CreateFragmentV2 : Fragment(), MavericksView {
 
             backButton {
                 id("back")
+                onclick { _ -> findNavController().navigateUp() }
             }
             createSectionHeader {
                 id("titleHeader")
@@ -75,6 +77,11 @@ class CreateFragmentV2 : Fragment(), MavericksView {
             createSectionHeader {
                 id("filterHeader")
                 title("Filters")
+            }
+            filters {
+                id("filters")
+                filters(state.filters)
+                onFilterCallback { filter, enabled -> viewModel.updateFilter(filter, enabled) }
             }
         })
         recyclerView.requestModelBuild()
