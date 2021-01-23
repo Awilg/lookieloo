@@ -44,8 +44,6 @@ import com.lookieloo.model.Loo
 import com.lookieloo.utils.RequestCodes
 import com.lookieloo.utils.Utils.dpToPx
 import com.lookieloo.utils.hideKeyboard
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.json.JSONArray
 import org.json.JSONException
 import pub.devrel.easypermissions.EasyPermissions
@@ -76,7 +74,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        placesClient = Places.createClient(context!!)
+        placesClient = Places.createClient(requireContext())
         sessionToken = AutocompleteSessionToken.newInstance()
         queue = Volley.newRequestQueue(context)
     }
@@ -100,22 +98,22 @@ PlacePredictionAdapter.OnPlaceClickListener,
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        val myLocationButton =
-            mapFragment?.view!!.findViewById<View>(2)
-
-        if (myLocationButton != null && myLocationButton.layoutParams is RelativeLayout.LayoutParams) {
-            // location button is inside of RelativeLayout
-            val params = myLocationButton.layoutParams as RelativeLayout.LayoutParams
-
-            // Align it to - parent BOTTOM|LEFT
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
-
-            // TODO: adjust for insets here
-            params.setMargins(0, view.dpToPx(150f), 0, 0)
-            myLocationButton.layoutParams = params
-        }
+//        val myLocationButton =
+//            mapFragment?.view!!.findViewById<View>(2)
+//
+//        if (myLocationButton != null && myLocationButton.layoutParams is RelativeLayout.LayoutParams) {
+//            // location button is inside of RelativeLayout
+//            val params = myLocationButton.layoutParams as RelativeLayout.LayoutParams
+//
+//            // Align it to - parent BOTTOM|LEFT
+//            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+//            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+//            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
+//
+//            // TODO: adjust for insets here
+//            params.setMargins(0, view.dpToPx(150f), 0, 0)
+//            myLocationButton.layoutParams = params
+//        }
 
 
         fusedLocationProviderClient =
@@ -150,13 +148,6 @@ PlacePredictionAdapter.OnPlaceClickListener,
         setUpFabMenu()
         initRecyclerView()
         setupFocusListenersUI(homeBinding.root)
-
-        homeBinding.horizontalFiltersBar.filter_baby1.addOnCheckedChangeListener(this)
-        homeBinding.horizontalFiltersBar.filter_clean1.addOnCheckedChangeListener(this)
-        homeBinding.horizontalFiltersBar.filter_public1.addOnCheckedChangeListener(this)
-        homeBinding.horizontalFiltersBar.filter_shared1.addOnCheckedChangeListener(this)
-        homeBinding.horizontalFiltersBar.filter_handicap1.addOnCheckedChangeListener(this)
-        homeBinding.horizontalFiltersBar.filter_mixed_gender1.addOnCheckedChangeListener(this)
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -180,12 +171,9 @@ PlacePredictionAdapter.OnPlaceClickListener,
             }
         }
 
-        map.isMyLocationEnabled = true
-        map.setOnMyLocationButtonClickListener(this)
-        map.setOnMyLocationClickListener(this)
-
         checkLocationPermission()
-        //getDeviceLocation()
+
+        getDeviceLocation()
 
         // Set a listener for marker click.
         map.setOnMarkerClickListener(this);
@@ -231,7 +219,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
     }
 
     private fun checkLocationPermission() {
-        if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
+        if (!EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)) {
             EasyPermissions.requestPermissions(
                 PermissionRequest.Builder(
                     this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
@@ -252,9 +240,9 @@ PlacePredictionAdapter.OnPlaceClickListener,
 
 
     private fun setUpFabMenu() {
-        create_fab.setOnClickListener {
+        homeBinding.createFab.setOnClickListener {
             checkBackStack()
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCreateFragmentV2())
         }
     }
 
@@ -336,7 +324,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
                 // Use Gson to convert the response JSON object to a POJO
                 val result: GeocodingResult = gson.fromJson(results.getString(0), GeocodingResult::class.java)
 
-                homeBinding.searchBar.search_bar_edittext.clearFocus()
+                homeBinding.searchBar.clearFocus()
                 adapter.setPredictions(emptyList())
 
                 result.geometry?.location?.let {
@@ -362,7 +350,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
             view.setOnTouchListener { _, _ ->
                 hideKeyboard()
                 if(homeBinding.searchBarEdittext.text.isNullOrEmpty()) {
-                    homeBinding.searchBar.search_bar_edittext.clearFocus()
+                    homeBinding.searchBar.clearFocus()
                     adapter.setPredictions(emptyList())
                 }
                 false

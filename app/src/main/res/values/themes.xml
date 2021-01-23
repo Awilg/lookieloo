@@ -3,10 +3,10 @@
 	<!--Base custom theme which will be shared between both light and dark theme variants-->
 	<style name="Base.LookieLooTheme" parent="Base.MaterialThemeBuilder">
 		<!--Material color attributes -->
-		<item name="colorPrimary">@color/color_primary</item>
-		<item name="colorPrimaryVariant">@color/color_primary_variant</item>
-		<item name="colorSecondary">@color/color_secondary</item>
-		<item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+		<item name="colorPrimary">@color/primary500</item>
+		<item name="colorPrimaryVariant">@color/primary700</item>
+		<item name="colorSecondary">@color/primary50</item>
+		<item name="colorSecondaryVariant">@color/primary200</item>
 
 
 		<item name="colorSurface">@color/color_background</item>
@@ -63,5 +63,29 @@
 		<item name="colorControlNormal">@color/color_dark_grey</item>
 		<item name="colorControlActivated">@color/color_dark_grey</item>
 		<item name="colorControlHighlight">@color/color_dark_grey</item>
+	</style>
+
+
+	<style name="createSectionHeader" parent="">
+		<item name="android:fontFamily">@font/opensans_bold</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:textColor">@android:color/black</item>
+	</style>
+
+
+	<style name="lookielooButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+		<item name="android:shape">rectangle</item>
+		<item name="android:radius">5dp</item>
+		<item name="textAllCaps">false</item>
+	</style>
+
+	<style name="lookielooButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerRadius">5dp</item>
+		<item name="textAllCaps">false</item>
+		<item name="fontFamily">@font/opensans_semibold</item>
+		<item name="android:stateListAnimator">@animator/mtrl_btn_unelevated_state_list_anim</item>
+		<item name="elevation">0dp</item>
 	</style>
 </resources>

@@ -24,7 +24,7 @@ class SettingsFragment : Fragment() {
 		}
 
 		// This callback will only be called when MyFragment is at least Started.
-		requireActivity().onBackPressedDispatcher.addCallback(this,
+		requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
 			object : OnBackPressedCallback(true) {
 				override fun handleOnBackPressed() {
 					fragmentManager?.popBackStackImmediate()

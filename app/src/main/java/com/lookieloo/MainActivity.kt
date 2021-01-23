@@ -3,8 +3,12 @@ package com.lookieloo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.airbnb.mvrx.Mavericks
+import com.airbnb.mvrx.MavericksViewModelConfigFactory
 import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity(),
@@ -12,7 +16,10 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        // Initialize Mavericks
+        Mavericks.initialize(this)
+        Mavericks.viewModelConfigFactory = MavericksViewModelConfigFactory(applicationContext)
 
         // Initialize the places SDK
         Places.initialize(applicationContext, resources.getString(R.string.google_maps_key))
@@ -21,6 +28,8 @@ class MainActivity : AppCompatActivity(),
         val placesClient = Places.createClient(this)
 
         hideSystemUI()
+
+        setContentView(R.layout.activity_main)
     }
 
     override fun onPreferenceStartFragment(

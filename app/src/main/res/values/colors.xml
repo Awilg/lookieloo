@@ -13,8 +13,8 @@
 	<color name="color_background">#FFFFFF</color>
 	<color name="color_error">#cf6679</color>
 
-	<color name="color_on_primary">#000000</color>
-	<color name="color_on_secondary">#000000</color>
+	<color name="color_on_primary">#EDE7F6</color>
+	<color name="color_on_secondary">#673AB7</color>
 	<color name="color_on_background">#ffffff</color>
 	<color name="color_on_surface">#ffffff</color>
 	<color name="color_on_error">#000000</color>
@@ -23,5 +23,18 @@
 	// Camera colors
 	<color name="icActive">#FFFFFFFF</color>
 	<color name="icFocused">#DDFFFFFF</color>
-	<color name="icPressed">#AAFFFFFF</color>
+	<color name="icPressed">#AAFFFFFF</color>EDE7F6
+
+
+	<color name="primary50">#EDE7F6</color>
+	<color name="primary100">#D1C4E9</color>
+	<color name="primary200">#B39DDB</color>
+	<color name="primary300">#9575CD</color>
+	<color name="primary400">#7E57C2</color>
+	<color name="primary500">#673AB7</color>
+	<color name="primary600">#5E35B1</color>
+	<color name="primary700">#512DA8</color>
+	<color name="primary800">#4527A0</color>
+	<color name="primary900">#311B92</color>
+
 </resources>

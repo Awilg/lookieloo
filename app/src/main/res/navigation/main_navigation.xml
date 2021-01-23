@@ -3,7 +3,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/main_navigation"
-	app:startDestination="@id/homeFragment">
+	app:startDestination="@id/createFragmentV2">
 
 	<fragment
 		android:id="@+id/homeFragment"
@@ -19,6 +19,9 @@
 		<action
 			android:id="@+id/action_homeFragment_to_settingsFragment"
 			app:destination="@id/settingsFragment" />
+		<action
+			android:id="@+id/action_homeFragment_to_createFragmentV2"
+			app:destination="@id/createFragmentV2" />
 	</fragment>
 
     <fragment
@@ -44,4 +47,8 @@
 		android:label="SettingsFragment"
 		app:popUpTo="@+id/main_navigation"
 		app:popUpToInclusive="true"/>
+	<fragment
+		android:id="@+id/createFragmentV2"
+		android:name="com.lookieloo.ui.create.CreateFragmentV2"
+		android:label="CreateFragmentV2" />
 </navigation>
