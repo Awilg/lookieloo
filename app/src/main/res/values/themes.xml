@@ -65,6 +65,10 @@
 		<item name="colorControlHighlight">@color/color_dark_grey</item>
 	</style>
 
+	<style name="lookielooRoundedCorners" parent="">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSize">10%</item>
+	</style>
 
 	<style name="createSectionHeader" parent="">
 		<item name="android:fontFamily">@font/opensans_bold</item>

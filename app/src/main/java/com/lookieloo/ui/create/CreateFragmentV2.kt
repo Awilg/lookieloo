@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MavericksView
 import com.airbnb.mvrx.activityViewModel
-import com.lookieloo.R
-import com.lookieloo.backButton
-import com.lookieloo.buttonOutlined
-import com.lookieloo.createSectionHeader
+import com.lookieloo.*
 import com.lookieloo.databinding.FragmentCreateV2Binding
 import com.lookieloo.utils.simpleController
 
@@ -59,6 +55,13 @@ class CreateFragmentV2 : Fragment(), MavericksView {
             createSectionHeader {
                 id("locationHeader")
                 title("Location")
+            }
+            state.location?.let {
+                mapviewStatic {
+                    id("mapview")
+                    latlng(it)
+                    mapsApiKey(getString(R.string.google_maps_key))
+                }
             }
             buttonOutlined {
                 id("selectOnMapBtn")

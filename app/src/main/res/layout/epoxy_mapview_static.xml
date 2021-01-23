@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.google.android.gms.maps.model.LatLng" />
+
+        <variable
+            name="latlng"
+            type="com.google.android.gms.maps.model.LatLng" />
+
+        <variable
+            name="mapsApiKey"
+            type="String" />
+    </data>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="@dimen/margin_24"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        app:mapImageFromLatLng="@{latlng}"
+        app:mapsApiKey="@{mapsApiKey}"
+        app:shapeAppearanceOverlay="@style/lookielooRoundedCorners" />
+
+</layout>

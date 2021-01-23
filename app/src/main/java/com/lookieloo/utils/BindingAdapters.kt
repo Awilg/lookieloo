@@ -2,15 +2,45 @@ package com.lookieloo.utils
 
 import android.view.View
 import android.view.WindowInsets
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.model.LatLng
+import com.lookieloo.R
 
+
+/**
+ * Uses the Glide library to load the image of the map from the static Maps API into an [ImageView]
+ */
+@BindingAdapter("mapImageFromLatLng", "mapsApiKey")
+fun bindImageMapView(imgView: ImageView, latLng: LatLng?, mapsApiKey: String) {
+    latLng?.let {
+        val path =
+            "maps.googleapis.com/maps/api/staticmap?center=${latLng.latitude},${latLng.longitude}&size=600x300&zoom=15&key=$mapsApiKey"
+        val imgUri = path.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                    .timeout(2000)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_connection_error)
+            )
+            .into(imgView)
+    }
+}
 
 // Handling insets
-data class InitialPadding(val left: Int, val top: Int,
-                          val right: Int, val bottom: Int)
+data class InitialPadding(
+    val left: Int, val top: Int,
+    val right: Int, val bottom: Int
+)
 
 private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom)
+    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+)
 
 
 fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) {
