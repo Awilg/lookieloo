@@ -3,17 +3,15 @@ package com.lookieloo.ui.home
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.airbnb.mvrx.MavericksViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.lookieloo.R
 import com.lookieloo.model.Loo
 import com.lookieloo.model.LooCreateRequest
 import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
+import com.lookieloo.ui.model.Filter
 import com.lookieloo.utils.testLoos
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +21,15 @@ import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
-val DEFAULT_LOCATION = LatLng(37.4219999,-122.0862462)
+val DEFAULT_LOCATION = LatLng(47.60357, -122.32945)
 const val DEFAULT_ZOOM = 17F
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(initialState) {
 
     private var _map: GoogleMap? = null
+
+    private val defaultLatLng = LatLng(-33.8523341, 151.2106085)
+    private val defaultZoom = 15F
 
     private val _lastKnownLocation = MutableLiveData<Location>()
     val lastKnownLocation: LiveData<Location>
@@ -56,6 +57,7 @@ class SharedViewModel : ViewModel() {
 
     init {
         Timber.i("VIEWMODEL INIT....")
+        _nearbyLoos.value = testLoos
         _lastKnownLocation.observeForever { location ->
             getNearbyLoos(location)
             updateMap()
@@ -113,13 +115,15 @@ class SharedViewModel : ViewModel() {
     }
 
     fun updateMap() {
-        _lastKnownLocation.value?.let { location ->
+        if (_lastKnownLocation.value == null) {
+            resetMap()
+        } else {
             _map?.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
-                        location.latitude,
-                        location.longitude
-                    ), DEFAULT_ZOOM
+                        _lastKnownLocation.value!!.latitude,
+                        _lastKnownLocation.value!!.longitude
+                    ), defaultZoom
                 )
             )
         }
@@ -133,7 +137,7 @@ class SharedViewModel : ViewModel() {
         )
     }
 
-    fun resetMap() {
+    private fun resetMap() {
         _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
     }
 
@@ -142,13 +146,25 @@ class SharedViewModel : ViewModel() {
             _filters.value = ArrayList()
         }
         if (isChecked) {
-            _filters.value = _filters.value?.plus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
+            _filters.value =
+                _filters.value?.plus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
         } else {
-            _filters.value = _filters.value?.minus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
+            _filters.value =
+                _filters.value?.minus(text.toString().toLowerCase(Locale.ROOT).replace(" ", "-"))
         }
     }
 
     fun setCurrentLoo(loo: Loo) {
         _currentSelectedLoo.value = loo
+    }
+
+    fun updateFilter(f: Filter, b: Boolean) {
+        setState {
+            copy(filters = filters.map {
+                if (it == f) {
+                    f.copy(enabled = b)
+                } else it
+            })
+        }
     }
 }

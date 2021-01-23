@@ -15,18 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:context="com.lookieloo.MainActivity" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,8 +35,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginStart="@dimen/margin_24"
+                android:layout_marginEnd="@dimen/margin_24"
                 android:textColorHint="@color/selector_search_bar"
                 android:theme="@style/searchBarTextInputLayoutAppearance"
                 app:hintTextColor="@color/selector_search_bar"
@@ -64,15 +61,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/search_bar"
-                app:layout_constraintTop_toTopOf="@id/search_bar"
-                app:layout_constraintBottom_toBottomOf="@id/search_bar"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_menu_black_24dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="0dp"
@@ -80,76 +68,16 @@
                 android:layout_marginTop="2dp"
                 app:layout_constraintTop_toBottomOf="@id/search_bar"
                 app:layout_constraintStart_toStartOf="@id/search_bar"
-                app:layout_constraintEnd_toEndOf="@id/search_bar"/>
+                app:layout_constraintEnd_toEndOf="@id/search_bar" />
 
-
-            <HorizontalScrollView
-                android:id="@+id/horizontal_filters_bar"
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/epoxy_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fillViewport="true"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_bar">
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_clean1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="3dp"
-                        android:checkable="true"
-                        android:text="@string/clean" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_handicap1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/accessible" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_public1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/public_filter" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_mixed_gender1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/mixed_gender" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_baby1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/baby_friendly" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/filter_shared1"
-                        style="@style/LookielooFilterButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/shared" />
-
-                </LinearLayout>
-            </HorizontalScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -297,14 +225,13 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_fab"
-            android:layout_width="@dimen/fab_size_mini"
-            android:layout_height="@dimen/fab_size_mini"
-            android:layout_margin="@dimen/fab_margin_mini"
+            android:layout_width="@dimen/fab_size_normal"
+            android:layout_height="@dimen/fab_size_normal"
+            android:layout_margin="@dimen/fab_margin_normal"
             android:src="@drawable/ic_add_black_24dp"
-            app:fabCustomSize="@dimen/fab_size_mini"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible" />
+            tools:ignore="ContentDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

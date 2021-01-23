@@ -1,6 +1,5 @@
 package com.lookieloo.ui.home
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.location.Location
@@ -8,18 +7,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.epoxy.Carousel
+import com.airbnb.epoxy.Carousel.setDefaultGlobalSnapHelperFactory
+import com.airbnb.epoxy.EpoxyRecyclerView
+import com.airbnb.epoxy.carousel
+import com.airbnb.mvrx.MavericksView
+import com.airbnb.mvrx.activityViewModel
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -37,39 +41,45 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.button.MaterialButton
 import com.google.gson.GsonBuilder
-import com.lookieloo.R
+import com.lookieloo.*
 import com.lookieloo.databinding.FragmentHomeBinding
 import com.lookieloo.model.GeocodingResult
 import com.lookieloo.model.Loo
+import com.lookieloo.ui.model.FilterModel_
+import com.lookieloo.ui.shared.withModelsFrom
 import com.lookieloo.utils.RequestCodes
-import com.lookieloo.utils.Utils.dpToPx
+import com.lookieloo.utils.checkFineLocation
 import com.lookieloo.utils.hideKeyboard
+import com.lookieloo.utils.simpleController
 import org.json.JSONArray
 import org.json.JSONException
 import pub.devrel.easypermissions.EasyPermissions
-import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
 
-class HomeFragment : Fragment(), OnMapReadyCallback,
+class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
     EasyPermissions.PermissionCallbacks,
     MaterialButton.OnCheckedChangeListener,
-PlacePredictionAdapter.OnPlaceClickListener,
+    PlacePredictionAdapter.OnPlaceClickListener,
     GoogleMap.OnMyLocationButtonClickListener,
-    GoogleMap.OnMyLocationClickListener{
+    GoogleMap.OnMyLocationClickListener {
+
+    private lateinit var homeBinding: FragmentHomeBinding
+    private lateinit var epoxyRecyclerView: EpoxyRecyclerView
+    private val sharedViewModel: SharedViewModel by activityViewModel()
 
     private val handler = Handler()
 
     private val adapter = PlacePredictionAdapter()
     private var sessionToken: AutocompleteSessionToken? = null
-    private val gson = GsonBuilder().registerTypeAdapter(LatLng::class.java, LatLngAdapter()).create()
+    private val gson =
+        GsonBuilder().registerTypeAdapter(LatLng::class.java, LatLngAdapter()).create()
     private lateinit var queue: RequestQueue
 
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
-    private lateinit var homeBinding: FragmentHomeBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +93,28 @@ PlacePredictionAdapter.OnPlaceClickListener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         homeBinding = FragmentHomeBinding.inflate(inflater)
         homeBinding.viewmodel = sharedViewModel
         homeBinding.lifecycleOwner = this
+
+        epoxyRecyclerView = homeBinding.epoxyRecyclerView
+        epoxyRecyclerView.setController(simpleController(sharedViewModel) { state ->
+            carousel {
+                id("carousel")
+                padding(Carousel.Padding.dp(24, 0, 24, 0, 8))
+                setDefaultGlobalSnapHelperFactory(null)
+
+                withModelsFrom(state.filters) {
+                    FilterModel_()
+                        .id(it.name)
+                        .filter(it)
+                        .onFilterCallback { filter, b -> sharedViewModel.updateFilter(filter, b) }
+                }
+            }
+        })
+        epoxyRecyclerView.requestModelBuild()
+
         return homeBinding.root
     }
 
@@ -98,8 +126,7 @@ PlacePredictionAdapter.OnPlaceClickListener,
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-//        val myLocationButton =
-//            mapFragment?.view!!.findViewById<View>(2)
+//        val myLocationButton = mapFragment?.requireView()?.findViewById<View>(2)
 //
 //        if (myLocationButton != null && myLocationButton.layoutParams is RelativeLayout.LayoutParams) {
 //            // location button is inside of RelativeLayout
@@ -138,10 +165,10 @@ PlacePredictionAdapter.OnPlaceClickListener,
 
         homeBinding.searchBarEdittext.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                homeBinding.horizontalFiltersBar.visibility = View.GONE
+                homeBinding.epoxyRecyclerView.visibility = View.GONE
             } else {
                 homeBinding.searchBarEdittext.setText("")
-                homeBinding.horizontalFiltersBar.visibility = View.VISIBLE
+                homeBinding.epoxyRecyclerView.visibility = View.VISIBLE
             }
         }
 
@@ -154,8 +181,8 @@ PlacePredictionAdapter.OnPlaceClickListener,
         // remove the direction buttons
         map.uiSettings.isMapToolbarEnabled = false
         map.uiSettings.isZoomControlsEnabled = false
-        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
-        sharedViewModel.setMap(map)
+        //map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
+
 
         // add markers for each
         sharedViewModel.nearbyLoos.observeForever { loos ->
@@ -164,19 +191,27 @@ PlacePredictionAdapter.OnPlaceClickListener,
                     val marker = map.addMarker(
                         MarkerOptions()
                             .position(loo.location)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_foreground))
+                            .icon(
+                                BitmapDescriptorFactory.fromBitmap(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_toilet_paper,
+                                        context?.theme
+                                    )?.toBitmap()
+                                )
+                            )
                     )
                     marker.tag = loo
                 }
             }
         }
 
-        checkLocationPermission()
-
+        checkFineLocation(requireContext())
+        sharedViewModel.setMap(map)
         getDeviceLocation()
 
         // Set a listener for marker click.
-        map.setOnMarkerClickListener(this);
+        map.setOnMarkerClickListener(this)
     }
 
     override fun onRequestPermissionsResult(
@@ -201,31 +236,18 @@ PlacePredictionAdapter.OnPlaceClickListener,
         }
     }
 
+
     private fun getDeviceLocation() {
         try {
-            val locationResult = fusedLocationProviderClient.lastLocation
-            locationResult.addOnCompleteListener(activity as Activity) { task ->
-                if (task.isSuccessful && task.result != null) {
-                    sharedViewModel.setLastKnownLocation(task.result as Location)
-                } else {
-                    Timber.d("Current location is null. Using defaults.")
-                    Timber.e("Exception: ${task.exception}")
-                    sharedViewModel.resetMap()
+            fusedLocationProviderClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        sharedViewModel.setLastKnownLocation(it)
+                    }
+                    sharedViewModel.updateMap()
                 }
-            }
         } catch (e: SecurityException) {
             Timber.e("Exception: ${e.message}")
-        }
-    }
-
-    private fun checkLocationPermission() {
-        if (!EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)) {
-            EasyPermissions.requestPermissions(
-                PermissionRequest.Builder(
-                    this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ).build()
-            )
         }
     }
 
@@ -381,5 +403,9 @@ PlacePredictionAdapter.OnPlaceClickListener,
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
+    }
+
+    override fun invalidate() {
+        epoxyRecyclerView.requestModelBuild()
     }
 }

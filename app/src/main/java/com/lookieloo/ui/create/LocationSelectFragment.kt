@@ -68,7 +68,7 @@ class LocationSelectFragment : Fragment(), MavericksView, OnMapReadyCallback, Ea
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         when (requestCode) {
             RequestCodes.PERMISSIONS_RC_LOCATION.code -> {
-                Timber.i("TEST: Refreshing the map")
+                getDeviceLocation()
             }
         }
     }

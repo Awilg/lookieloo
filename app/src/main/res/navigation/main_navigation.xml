@@ -3,19 +3,13 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/main_navigation"
-	app:startDestination="@id/createFragmentV2">
+	app:startDestination="@id/homeFragment">
 
 	<fragment
 		android:id="@+id/homeFragment"
 		android:name="com.lookieloo.ui.home.HomeFragment"
-		tools:layout="@layout/fragment_home"
-		android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
-		<action
-			android:id="@+id/action_homeFragment_to_createFragment"
-			app:destination="@id/createFragment" />
+		android:label="HomeFragment"
+		tools:layout="@layout/fragment_home">
 		<actio
 			android:id="@+id/action_homeFragment_to_settingsFragment"
 			app:destination="@id/settingsFragment" />
@@ -23,22 +17,6 @@
 			android:id="@+id/action_homeFragment_to_createFragmentV2"
 			app:destination="@id/createFragmentV2" />
 	</fragment>
-
-    <fragment
-        android:id="@+id/filterFragment"
-        android:name="com.lookieloo.ui.filter.FilterFragment"
-        tools:layout="@layout/fragment_filter"
-        android:label="FilterFragment"
-		app:popUpTo="@+id/main_navigation"
-		app:popUpToInclusive="true"/>
-
-	<fragment
-		android:id="@+id/createFragment"
-		android:name="com.lookieloo.ui.create.CreateFragment"
-		tools:layout="@layout/fragment_create"
-		android:label="CreateFragment"
-		app:popUpTo="@+id/main_navigation"
-		app:popUpToInclusive="true"/>
 
 	<fragment
 		android:id="@+id/settingsFragment"

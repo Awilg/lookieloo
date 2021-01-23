@@ -38,7 +38,6 @@
 		<item name="backgroundTint">@color/selector_filter_button</item>
 		<item name="iconTint">@color/selector_filter_icon</item>
 		<item name="android:textColor">@color/selector_filter_icon</item>
-		<item name="android:layout_marginEnd">4dp</item>
 		<item name="android:textAllCaps">false</item>
 		<item name="android:checkable">true</item>
 		<item name="cornerFamily">rounded</item>
@@ -56,12 +55,6 @@
 
 	</style>
 
-	<style name="lookielooSearchBar" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-		<item name="android:shape">rectangle</item>
-		<item name="android:radius">5dp</item>
-	</style>
-
-
 	<style name="searchBarTextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
 		<item name="colorControlNormal">@color/color_dark_grey</item>
 		<item name="colorControlActivated">@color/color_dark_grey</item>
@@ -71,6 +64,11 @@
 	<style name="lookielooRoundedCorners" parent="">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">10%</item>
+	</style>
+
+	<style name="lookielooSearchBar" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+		<item name="android:shape">ring</item>
+		<item name="android:radius">5dp</item>
 	</style>
 
 	<style name="createSectionHeader" parent="">
