@@ -19,13 +19,6 @@
 	</fragment>
 
 	<fragment
-		android:id="@+id/settingsFragment"
-		android:name="com.lookieloo.ui.settings.SettingsFragment"
-		tools:layout="@layout/fragment_settings"
-		android:label="SettingsFragment"
-		app:popUpTo="@+id/main_navigation"
-		app:popUpToInclusive="true"/>
-	<fragment
 		android:id="@+id/createFragmentV2"
 		android:name="com.lookieloo.ui.create.CreateFragmentV2"
 		android:label="CreateFragmentV2" >

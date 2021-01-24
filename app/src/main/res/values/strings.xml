@@ -28,4 +28,7 @@
     <string name="select_location_btn_text">Select Location</string>
 
 
+    <string name="loo_carousel_id">filterCarousel</string>
+
+
 </resources>

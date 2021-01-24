@@ -9,5 +9,6 @@ import com.lookieloo.utils.testLoos
 data class HomeState(
     val test: String? = null,
     val filters: List<Filter> = testFilters,
-    val loos: List<Loo> = testLoos
+    val loos: List<Loo> = testLoos,
+    val selectedLooIndex: Int? = null
 ) : MavericksState

@@ -3,16 +3,11 @@ package com.lookieloo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.airbnb.mvrx.Mavericks
 import com.airbnb.mvrx.MavericksViewModelConfigFactory
 import com.google.android.libraries.places.api.Places
 
-class MainActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback{
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,27 +25,6 @@ class MainActivity : AppCompatActivity(),
         hideSystemUI()
 
         setContentView(R.layout.activity_main)
-    }
-
-    override fun onPreferenceStartFragment(
-        caller: PreferenceFragmentCompat,
-        pref: Preference
-    ): Boolean {
-        // Instantiate the new Fragment
-        val args = pref.extras
-        // Need to get the fragment manager of the child and not the nav host
-        val fragManager = supportFragmentManager.primaryNavigationFragment!!.childFragmentManager
-        val fragment = fragManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
-            arguments = args
-            setTargetFragment(caller, 0)
-        }
-        // Replace the existing Fragment with the new Fragment
-        fragManager.beginTransaction()
-            .replace(R.id.settings, fragment)
-            .addToBackStack(null)
-            .commit()
-        title = pref.title
-        return true
     }
 
     private fun hideSystemUI() {

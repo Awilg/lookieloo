@@ -13,7 +13,10 @@ import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
 import com.lookieloo.ui.model.Filter
 import com.lookieloo.utils.testLoos
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -47,8 +50,8 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
     val currentSelectedLoo: LiveData<Loo>
         get() = _currentSelectedLoo
 
-    private val _selectedLooIndex = MutableLiveData<Int>()
-    val selectedLooIndex: LiveData<Int>
+    private val _selectedLooIndex = MutableLiveData<Int?>()
+    val selectedLooIndex: LiveData<Int?>
         get() = _selectedLooIndex
 
     // Filters
@@ -62,6 +65,10 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
         _lastKnownLocation.observeForever { location ->
             getNearbyLoos(location)
             updateMap()
+        }
+
+        onEach(HomeState::selectedLooIndex) { index ->
+            _selectedLooIndex.value = index
         }
     }
 
@@ -156,11 +163,7 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
     }
 
     fun setCurrentLooIndex(loo: Loo) {
-        var adv: Int
-        runBlocking {
-            adv = awaitState().loos.indexOf(loo)
-        }
-        _selectedLooIndex.value = adv
+        setState { copy(selectedLooIndex = loos.indexOf(loo)) }
     }
 
     fun updateFilter(f: Filter, b: Boolean) {

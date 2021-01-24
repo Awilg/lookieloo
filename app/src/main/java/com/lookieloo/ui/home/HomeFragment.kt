@@ -133,9 +133,13 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         looRecyclerView.visibility = View.INVISIBLE
 
         // this is jank
-        sharedViewModel.selectedLooIndex.observeForever {
-            looRecyclerView.visibility = View.VISIBLE
-            (looRecyclerView[0] as RecyclerView).scrollToPosition(it)
+        sharedViewModel.selectedLooIndex.observeForever { index ->
+            index?.let {
+                if (looRecyclerView.childCount != 0) {
+                    looRecyclerView.visibility = View.VISIBLE
+                    (looRecyclerView[0] as RecyclerView).scrollToPosition(it)
+                }
+            }
         }
 
         return homeBinding.root
