@@ -14,11 +14,11 @@ import com.lookieloo.databinding.FragmentCreateV2Binding
 import com.lookieloo.ui.model.filters
 import com.lookieloo.ui.shared.simpleController
 
-class CreateFragmentV2 : Fragment(), MavericksView {
+class CreateFragment : Fragment(), MavericksView {
 
     private lateinit var recyclerView: EpoxyRecyclerView
 
-    private val viewModel: CreateViewModelV2 by activityViewModel()
+    private val viewModel: CreateViewModel by activityViewModel()
     lateinit var binding: FragmentCreateV2Binding
 
     override fun onCreateView(
@@ -70,7 +70,7 @@ class CreateFragmentV2 : Fragment(), MavericksView {
                 buttonText("Select on map")
                 onclick { _ ->
                     findNavController().navigate(
-                        CreateFragmentV2Directions.actionCreateFragmentV2ToLocationSelectFragment()
+                        CreateFragmentDirections.actionCreateFragmentToLocationSelectFragment()
                     )
                 }
             }
@@ -91,7 +91,10 @@ class CreateFragmentV2 : Fragment(), MavericksView {
         recyclerView.setItemSpacingDp(12)
         binding.actionButtonSection.buttonText = getString(R.string.create_action_btn_text)
         binding.actionButtonSection.onclick =
-            View.OnClickListener { viewModel.saveLoo() }
+            View.OnClickListener {
+                viewModel.saveLoo()
+                findNavController().navigate(CreateFragmentDirections.actionCreateFragmentToHomeFragment())
+            }
         return binding.root
     }
 

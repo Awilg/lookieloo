@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.lookieloo.ui.model.Filter
 import com.lookieloo.utils.testFilters
 
-data class CreateStateV2(
+data class CreateState(
     val title: String? = null,
     val description: String? = null,
     val location: LatLng? = null,

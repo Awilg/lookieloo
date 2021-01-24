@@ -9,8 +9,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.lookieloo.ui.model.Filter
 
-class CreateViewModelV2(initialState: CreateStateV2) :
-    MavericksViewModel<CreateStateV2>(initialState) {
+class CreateViewModel(initialState: CreateState) :
+    MavericksViewModel<CreateState>(initialState) {
 
     private val defaultLatLng = LatLng(-33.8523341, 151.2106085)
     private val defaultZoom = 15F

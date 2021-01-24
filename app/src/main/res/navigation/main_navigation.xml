@@ -15,16 +15,19 @@
 			app:destination="@id/settingsFragment" />
 		<action
 			android:id="@+id/action_homeFragment_to_createFragmentV2"
-			app:destination="@id/createFragmentV2" />
+			app:destination="@id/createFragment" />
 	</fragment>
 
 	<fragment
-		android:id="@+id/createFragmentV2"
-		android:name="com.lookieloo.ui.create.CreateFragmentV2"
-		android:label="CreateFragmentV2" >
+		android:id="@+id/createFragment"
+		android:name="com.lookieloo.ui.create.CreateFragment"
+		android:label="CreateFragment">
 		<action
-			android:id="@+id/action_createFragmentV2_to_locationSelectFragment"
+			android:id="@+id/action_createFragment_to_locationSelectFragment"
 			app:destination="@id/locationSelectFragment" />
+		<action
+			android:id="@+id/action_createFragment_to_homeFragment"
+			app:destination="@id/homeFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
@@ -32,6 +35,6 @@
 		android:label="LocationSelectFragment" >
 		<action
 			android:id="@+id/action_locationSelectFragment_to_createFragmentV2"
-			app:destination="@id/createFragmentV2" />
+			app:destination="@id/createFragment" />
 	</fragment>
 </navigation>

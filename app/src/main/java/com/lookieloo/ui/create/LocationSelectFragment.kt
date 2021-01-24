@@ -24,7 +24,7 @@ import timber.log.Timber
 
 class LocationSelectFragment : Fragment(), MavericksView, OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
 
-    private val viewModel: CreateViewModelV2 by activityViewModel()
+    private val viewModel: CreateViewModel by activityViewModel()
     lateinit var binding: FragmentCreateLocationSelectBinding
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
