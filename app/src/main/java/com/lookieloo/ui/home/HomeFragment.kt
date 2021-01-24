@@ -14,10 +14,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.Carousel.setDefaultGlobalSnapHelperFactory
 import com.airbnb.epoxy.EpoxyRecyclerView
@@ -134,6 +136,11 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         })
         filterRecyclerView.requestModelBuild()
         looRecyclerView.requestModelBuild()
+
+        // this is jank
+        sharedViewModel.selectedLooIndex.observeForever {
+            (looRecyclerView[0] as RecyclerView).scrollToPosition(it)
+        }
 
         return homeBinding.root
     }
@@ -300,8 +307,9 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
             val loo = marker.tag as Loo
             val v = view?.findViewById<View>(R.id.loo_detail_card)
             v?.visibility = View.VISIBLE
-            sharedViewModel.setCurrentLoo(loo)
-            Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
+            sharedViewModel.setCurrentLooIndex(loo)
+            sharedViewModel.moveMapToLocation(loo.location)
+            //Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
         }
         return true
     }

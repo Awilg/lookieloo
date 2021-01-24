@@ -13,10 +13,7 @@ import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
 import com.lookieloo.ui.model.Filter
 import com.lookieloo.utils.testLoos
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,6 +46,10 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
     private val _currentSelectedLoo = MutableLiveData<Loo>()
     val currentSelectedLoo: LiveData<Loo>
         get() = _currentSelectedLoo
+
+    private val _selectedLooIndex = MutableLiveData<Int>()
+    val selectedLooIndex: LiveData<Int>
+        get() = _selectedLooIndex
 
     // Filters
     private val _filters = MutableLiveData<List<String>>()
@@ -154,8 +155,12 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
         }
     }
 
-    fun setCurrentLoo(loo: Loo) {
-        _currentSelectedLoo.value = loo
+    fun setCurrentLooIndex(loo: Loo) {
+        var adv: Int
+        runBlocking {
+            adv = awaitState().loos.indexOf(loo)
+        }
+        _selectedLooIndex.value = adv
     }
 
     fun updateFilter(f: Filter, b: Boolean) {
