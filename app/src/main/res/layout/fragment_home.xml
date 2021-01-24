@@ -30,18 +30,17 @@
             android:layout_height="match_parent"
             app:paddingTopSystemWindowInsets="@{true}">
 
-            <ImageView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/back_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/margin_24"
-                android:layout_marginTop="@dimen/margin_24"
+                android:layout_width="@dimen/fab_size_normal"
+                android:layout_height="@dimen/fab_size_normal"
+                android:layout_margin="@dimen/fab_margin_normal"
+                android:backgroundTint="@android:color/white"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:translationZ="1dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@android:color/black" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/search_bar_card"
@@ -120,6 +119,7 @@
             android:layout_width="@dimen/fab_size_normal"
             android:layout_height="@dimen/fab_size_normal"
             android:layout_margin="@dimen/fab_margin_normal"
+            android:backgroundTint="@android:color/white"
             android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

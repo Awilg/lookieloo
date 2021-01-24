@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loo_detail_card"
-    android:layout_height="350dp"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
     app:cardCornerRadius="24dp"
     app:cardElevation="4dp">
 
@@ -21,34 +21,34 @@
             android:layout_marginEnd="@dimen/margin_24"
             android:ellipsize="end"
             android:maxLines="1"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Target on 24th and Park" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Target on 24th and Park" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/loo_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_24"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_24"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/loo_title"
-                tools:text="The bathrooms are on the third floor and don't require a passcode or anything. They seem nice. In a pinch it'll do nicely, but you don't want to bring food." />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loo_description"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loo_title"
+            tools:text="The bathrooms are on the third floor and don't require a passcode or anything. They seem nice. In a pinch it'll do nicely, but you don't want to bring food." />
 
-            <include
-                android:id="@+id/loo_filter_holder"
-                layout="@layout/button_filters"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/loo_description" />
+        <include
+            android:id="@+id/loo_filter_holder"
+            layout="@layout/button_filters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            app:layout_constraintTop_toBottomOf="@id/loo_description" />
 
         <include
             android:id="@+id/report_button"
@@ -59,7 +59,8 @@
             android:layout_marginTop="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loo_filter_holder" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
