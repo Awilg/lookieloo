@@ -1,4 +1,4 @@
-package com.lookieloo.utils
+package com.lookieloo.ui.shared
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder

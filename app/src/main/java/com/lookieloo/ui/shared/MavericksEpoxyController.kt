@@ -1,4 +1,4 @@
-package com.lookieloo.utils
+package com.lookieloo.ui.shared
 
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.AsyncEpoxyController

@@ -7,7 +7,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.lookieloo.R
 import com.lookieloo.model.Loo
-import com.lookieloo.utils.KotlinEpoxyHolder
+import com.lookieloo.ui.shared.KotlinEpoxyHolder
 
 @EpoxyModelClass(layout = R.layout.e_loo_detail)
 abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {

@@ -50,17 +50,11 @@ import com.lookieloo.model.Loo
 import com.lookieloo.ui.model.FilterModel_
 import com.lookieloo.ui.model.LooModel_
 import com.lookieloo.ui.model.customSnappingCarousel
-import com.lookieloo.ui.shared.toast
-import com.lookieloo.ui.shared.withModelsFrom
-import com.lookieloo.utils.RequestCodes
-import com.lookieloo.utils.checkFineLocation
-import com.lookieloo.utils.hideKeyboard
-import com.lookieloo.utils.simpleController
+import com.lookieloo.ui.shared.*
 import org.json.JSONArray
 import org.json.JSONException
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
-
 
 class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
@@ -111,7 +105,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                 id("looCarousel")
                 padding(Carousel.Padding.dp(24, 8, 24, 8, 8))
                 snapHelperCallback {
-                    toast("TEST POSITION: $it")
+                    sharedViewModel.moveMapToLocation(state.loos[it].location)
                 }
                 withModelsFrom(state.loos) {
                     LooModel_()
@@ -136,9 +130,11 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         })
         filterRecyclerView.requestModelBuild()
         looRecyclerView.requestModelBuild()
+        looRecyclerView.visibility = View.INVISIBLE
 
         // this is jank
         sharedViewModel.selectedLooIndex.observeForever {
+            looRecyclerView.visibility = View.VISIBLE
             (looRecyclerView[0] as RecyclerView).scrollToPosition(it)
         }
 
@@ -173,7 +169,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        homeBinding.searchBarEdittext.addTextChangedListener(object: TextWatcher {
+        homeBinding.searchBarEdittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -181,7 +177,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.isNullOrEmpty()) {
+                if (s.isNullOrEmpty()) {
                     homeBinding.searchBarEdittext.clearFocus()
                     adapter.setPredictions(emptyList())
                 }
@@ -197,6 +193,10 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                 homeBinding.searchBarEdittext.setText("")
                 homeBinding.filterRecyclerView.visibility = View.VISIBLE
             }
+        }
+
+        homeBinding.backButton.setOnClickListener {
+            hideDetailElements()
         }
 
         setUpFabMenu()
@@ -305,8 +305,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     override fun onMarkerClick(p0: Marker?): Boolean {
         p0?.let {marker ->
             val loo = marker.tag as Loo
-            val v = view?.findViewById<View>(R.id.loo_detail_card)
-            v?.visibility = View.VISIBLE
+            showDetailElements()
             sharedViewModel.setCurrentLooIndex(loo)
             sharedViewModel.moveMapToLocation(loo.location)
             //Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
@@ -431,6 +430,22 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
+    }
+
+    private fun showDetailElements() {
+        looRecyclerView.visibility = View.VISIBLE
+        filterRecyclerView.visibility = View.INVISIBLE
+        homeBinding.searchBarCard.visibility = View.INVISIBLE
+        homeBinding.createFab.visibility = View.INVISIBLE
+        homeBinding.backButton.visibility = View.VISIBLE
+    }
+
+    private fun hideDetailElements() {
+        looRecyclerView.visibility = View.INVISIBLE
+        filterRecyclerView.visibility = View.VISIBLE
+        homeBinding.searchBarCard.visibility = View.VISIBLE
+        homeBinding.createFab.visibility = View.VISIBLE
+        homeBinding.backButton.visibility = View.INVISIBLE
     }
 
     override fun invalidate() {

@@ -17,8 +17,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.lookieloo.R
 import com.lookieloo.databinding.FragmentCreateLocationSelectBinding
-import com.lookieloo.utils.RequestCodes
-import com.lookieloo.utils.checkFineLocation
+import com.lookieloo.ui.shared.RequestCodes
+import com.lookieloo.ui.shared.checkFineLocation
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
 

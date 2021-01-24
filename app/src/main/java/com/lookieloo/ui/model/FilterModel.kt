@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.google.android.material.button.MaterialButton
 import com.lookieloo.R
-import com.lookieloo.utils.KotlinEpoxyHolder
+import com.lookieloo.ui.shared.KotlinEpoxyHolder
 
 
 @EpoxyModelClass(layout = R.layout.e_filter)

@@ -12,7 +12,7 @@ import com.airbnb.mvrx.activityViewModel
 import com.lookieloo.*
 import com.lookieloo.databinding.FragmentCreateV2Binding
 import com.lookieloo.ui.model.filters
-import com.lookieloo.utils.simpleController
+import com.lookieloo.ui.shared.simpleController
 
 class CreateFragmentV2 : Fragment(), MavericksView {
 

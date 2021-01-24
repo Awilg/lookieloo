@@ -1,6 +1,11 @@
 package com.lookieloo.ui.shared
 
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.CarouselModelBuilder
@@ -9,6 +14,37 @@ import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyModel
 import com.lookieloo.ui.model.CustomSnappingCarouselModelBuilder
 import com.lookieloo.ui.model.CustomSnappingCarouselModel_
+import pub.devrel.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.PermissionRequest
+
+
+fun Fragment.hideKeyboard() {
+    view?.let { activity?.hideKeyboard(it) }
+}
+
+fun Activity.hideKeyboard() {
+    if (currentFocus == null) View(this) else currentFocus?.let { hideKeyboard(it) }
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun Fragment.checkFineLocation(context: Context) {
+    if (!EasyPermissions.hasPermissions(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    ) {
+        EasyPermissions.requestPermissions(
+            PermissionRequest.Builder(
+                this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ).build()
+        )
+    }
+}
 
 /** For use in the buildModels method of EpoxyController. A shortcut for creating a Carousel model, initializing it, and adding it to the controller.
  *

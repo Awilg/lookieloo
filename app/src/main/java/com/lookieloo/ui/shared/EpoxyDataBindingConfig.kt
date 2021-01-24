@@ -1,4 +1,4 @@
-package com.lookieloo.utils
+package com.lookieloo.ui.shared
 
 import com.airbnb.epoxy.EpoxyDataBindingPattern
 import com.lookieloo.R
