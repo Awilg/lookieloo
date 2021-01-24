@@ -3,6 +3,7 @@ package com.lookieloo.ui.model
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.lookieloo.R
 import com.lookieloo.model.Loo
@@ -21,6 +22,7 @@ abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {
         loo?.let {
             holder.title.text = it.title
             holder.description.text = it.description
+            holder.reportBtn.text = "Report"
         }
     }
 
@@ -29,5 +31,6 @@ abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {
     class Holder : KotlinEpoxyHolder() {
         val title by bind<MaterialTextView>(R.id.loo_title)
         val description by bind<MaterialTextView>(R.id.loo_description)
+        val reportBtn by bind<MaterialButton>(R.id.report_button)
     }
 }

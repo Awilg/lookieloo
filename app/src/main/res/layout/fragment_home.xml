@@ -30,45 +30,54 @@
             android:layout_height="match_parent"
             app:paddingTopSystemWindowInsets="@{true}">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_bar"
-                android:layout_marginTop="16dp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/search_bar_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_24"
+                android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_24"
-                android:textColorHint="@color/selector_search_bar"
-                android:theme="@style/searchBarTextInputLayoutAppearance"
-                app:hintTextColor="@color/selector_search_bar"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeColor="@color/selector_edittext_underline"
-                app:shapeAppearance="@style/lookielooSearchBar"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                android:hint="@string/search">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/search_bar_edittext"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_bar"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/selector_search_bar"/>
+                    android:hint="@string/explore"
+                    android:textColorHint="@color/selector_search_bar"
+                    android:theme="@style/searchBarTextInputLayoutAppearance"
+                    app:boxBackgroundColor="@color/color_background"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/selector_edittext_underline"
+                    app:boxStrokeWidth="0dp"
+                    app:hintTextColor="@color/selector_search_bar"
+                    app:shapeAppearance="@style/lookielooSearchBar">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_bar_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/selector_search_bar" />
 
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                app:layout_constraintTop_toBottomOf="@id/search_bar"
-                app:layout_constraintStart_toStartOf="@id/search_bar"
-                app:layout_constraintEnd_toEndOf="@id/search_bar" />
+                app:layout_constraintEnd_toEndOf="@id/search_bar_card"
+                app:layout_constraintStart_toStartOf="@id/search_bar_card"
+                app:layout_constraintTop_toBottomOf="@id/search_bar_card" />
 
             <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/filter_recycler_view"
@@ -76,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/search_bar" />
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@id/search_bar_card" />
 
             <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/loo_recycler_view"
@@ -84,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_32"
                 android:orientation="vertical"
+                android:clipToPadding="false"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -47,6 +47,8 @@ import com.lookieloo.model.GeocodingResult
 import com.lookieloo.model.Loo
 import com.lookieloo.ui.model.FilterModel_
 import com.lookieloo.ui.model.LooModel_
+import com.lookieloo.ui.model.customSnappingCarousel
+import com.lookieloo.ui.shared.toast
 import com.lookieloo.ui.shared.withModelsFrom
 import com.lookieloo.utils.RequestCodes
 import com.lookieloo.utils.checkFineLocation
@@ -102,10 +104,24 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
 
         filterRecyclerView = homeBinding.filterRecyclerView
         looRecyclerView = homeBinding.looRecyclerView
+        looRecyclerView.setController(simpleController(sharedViewModel) { state ->
+            customSnappingCarousel {
+                id("looCarousel")
+                padding(Carousel.Padding.dp(24, 8, 24, 8, 8))
+                snapHelperCallback {
+                    toast("TEST POSITION: $it")
+                }
+                withModelsFrom(state.loos) {
+                    LooModel_()
+                        .id(it.id)
+                        .loo(it)
+                }
+            }
+        })
         filterRecyclerView.setController(simpleController(sharedViewModel) { state ->
             carousel {
                 id("filterCarousel")
-                padding(Carousel.Padding.dp(24, 0, 24, 0, 8))
+                padding(Carousel.Padding.dp(24, 8, 24, 8, 8))
                 setDefaultGlobalSnapHelperFactory(null)
 
                 withModelsFrom(state.filters) {
@@ -113,18 +129,6 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                         .id(it.name)
                         .filter(it)
                         .onFilterCallback { filter, b -> sharedViewModel.updateFilter(filter, b) }
-                }
-            }
-        })
-        looRecyclerView.setController(simpleController(sharedViewModel) { state ->
-            carousel {
-                id("looCarousel")
-                padding(Carousel.Padding.dp(24, 0, 24, 0, 8))
-
-                withModelsFrom(state.loos) {
-                    LooModel_()
-                        .id(it.id)
-                        .loo(it)
                 }
             }
         })
@@ -294,7 +298,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     override fun onMarkerClick(p0: Marker?): Boolean {
         p0?.let {marker ->
             val loo = marker.tag as Loo
-            val v = view?.findViewById<View>(R.id.loo_card_holder)
+            val v = view?.findViewById<View>(R.id.loo_detail_card)
             v?.visibility = View.VISIBLE
             sharedViewModel.setCurrentLoo(loo)
             Toast.makeText(context, "test-marker-description: ${(marker.tag as Loo).description}", Toast.LENGTH_SHORT).show()
