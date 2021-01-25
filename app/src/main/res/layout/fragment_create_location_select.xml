@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:paddingTopSystemWindowInsets="@{true}">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/back_button"
