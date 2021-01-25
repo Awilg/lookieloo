@@ -12,7 +12,7 @@ import com.lookieloo.model.LooCreateRequest
 import com.lookieloo.model.LooLocationRequest
 import com.lookieloo.network.LooApi
 import com.lookieloo.ui.model.Filter
-import com.lookieloo.utils.testLoos
+import com.lookieloo.ui.shared.testLoos
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

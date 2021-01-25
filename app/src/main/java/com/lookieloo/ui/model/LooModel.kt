@@ -23,6 +23,27 @@ abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {
             holder.title.text = it.title
             holder.description.text = it.description
             holder.reportBtn.text = "Report"
+
+            it.filters?.let { filters ->
+                filters.forEach { filter ->
+                    if (filter.enabled) {
+                        when (filter.type) {
+                            FilterType.Accessible -> holder.handicapBtn.isChecked = true
+                            FilterType.Baby -> holder.babyBtn.isChecked = true
+                            FilterType.Clean -> holder.cleanBtn.isChecked = true
+                            FilterType.Genderless -> holder.genderlessBtn.isChecked = true
+                            FilterType.Public -> holder.publicBtn.isChecked = true
+
+                        }
+                    }
+                }
+            }
+
+            holder.cleanBtn.isEnabled = false
+            holder.babyBtn.isEnabled = false
+            holder.handicapBtn.isEnabled = false
+            holder.genderlessBtn.isEnabled = false
+            holder.publicBtn.isEnabled = false
         }
     }
 
@@ -32,5 +53,10 @@ abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {
         val title by bind<MaterialTextView>(R.id.loo_title)
         val description by bind<MaterialTextView>(R.id.loo_description)
         val reportBtn by bind<MaterialButton>(R.id.report_button)
+        val cleanBtn by bind<MaterialButton>(R.id.filter_clean)
+        val babyBtn by bind<MaterialButton>(R.id.filter_baby)
+        val handicapBtn by bind<MaterialButton>(R.id.filter_handicap)
+        val genderlessBtn by bind<MaterialButton>(R.id.filter_mixed_gender)
+        val publicBtn by bind<MaterialButton>(R.id.filter_public)
     }
 }
