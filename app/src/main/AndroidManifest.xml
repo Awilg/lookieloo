@@ -8,9 +8,9 @@
 <!--	TODO - the android:usesCleartextTraffic="true" is only for debugging and is not to be deployed -->
 	<application
 		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@mipmap/ic_launcher_bg"
 		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher_round"
+		android:roundIcon="@mipmap/ic_launcher_bg_round"
 		android:supportsRtl="true"
 		android:usesCleartextTraffic="true"
 		android:theme="@style/Base.LookieLooTheme">
