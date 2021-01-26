@@ -70,6 +70,10 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
         onEach(HomeState::selectedLooIndex) { index ->
             _selectedLooIndex.value = index
         }
+
+        onEach(HomeState::loos) {
+            _nearbyLoos.value = it
+        }
     }
 
     private fun getNearbyLoos(loc: Location) {
