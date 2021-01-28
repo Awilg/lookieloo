@@ -17,6 +17,9 @@
 		<item name="colorOnBackground">@color/color_on_background</item>
 		<item name="colorOnSurface">@color/color_on_surface</item>
 		<item name="colorOnError">@color/color_on_error</item>
+
+		<!--	Dialog rounded corners	-->
+		<item name="md_corner_radius">10dp</item>
 	</style>
 
 	<style name="Base.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
