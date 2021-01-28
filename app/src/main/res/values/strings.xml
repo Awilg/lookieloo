@@ -33,6 +33,7 @@
 
 
     <string name="report_prompt">What\'s wrong with this loo?</string>
+    <string name="report_thanks">Thanks for the report!</string>
     <array name="report_reasons">
         <item>Inappropriate language</item>
         <item>Inaccurate Location</item>

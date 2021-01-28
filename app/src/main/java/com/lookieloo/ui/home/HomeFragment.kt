@@ -136,7 +136,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         looRecyclerView.requestModelBuild()
         looRecyclerView.visibility = View.INVISIBLE
 
-        // this is jank
+        // TODO: this is jank
         sharedViewModel.selectedLooIndex.observeForever { index ->
             index?.let {
                 if (looRecyclerView.childCount != 0) {
@@ -151,16 +151,18 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
 
     private fun showReportDialog(looId: String) {
         MaterialDialog(requireContext()).show {
-            title(text = "What's wrong with this Loo?")
+            title(text = getString(R.string.report_prompt))
             listItemsMultiChoice(
                 R.array.report_reasons,
                 waitForPositiveButton = true
             ) { _, index, text ->
-                longToast("Thanks for the report!")
+                longToast(getString(R.string.report_thanks))
                 sharedViewModel.reportLoo(looId, text)
             }
             positiveButton(R.string.report)
-            cancelable(true)
+            negativeButton(R.string.cancel) {
+                it.dismiss()
+            }
         }
     }
 
@@ -375,7 +377,6 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
     override fun onPlaceClicked(place: AutocompletePrediction) {
-        Toast.makeText(context, "Clicked something!", Toast.LENGTH_SHORT).show()
         // Construct the request URL
         val apiKey = getString(R.string.google_maps_key)
         val requestURL =
