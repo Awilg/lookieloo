@@ -179,4 +179,8 @@ class SharedViewModel(initialState: HomeState) : MavericksViewModel<HomeState>(i
             })
         }
     }
+
+    fun reportLoo(looId: String, text: List<CharSequence>) {
+
+    }
 }

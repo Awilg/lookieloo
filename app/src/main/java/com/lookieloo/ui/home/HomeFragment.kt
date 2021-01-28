@@ -20,6 +20,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItemsMultiChoice
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.Carousel.setDefaultGlobalSnapHelperFactory
 import com.airbnb.epoxy.EpoxyRecyclerView
@@ -111,6 +113,8 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                     LooModel_()
                         .id(it.id)
                         .loo(it)
+                        .reportBtnText(getString(R.string.report))
+                        .onReport { showReportDialog(it.id) }
                 }
             }
         })
@@ -143,6 +147,21 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         }
 
         return homeBinding.root
+    }
+
+    private fun showReportDialog(looId: String) {
+        MaterialDialog(requireContext()).show {
+            title(text = "What's wrong with this Loo?")
+            listItemsMultiChoice(
+                R.array.report_reasons,
+                waitForPositiveButton = true
+            ) { _, index, text ->
+                longToast("Thanks for the report!")
+                sharedViewModel.reportLoo(looId, text)
+            }
+            positiveButton(R.string.report)
+            cancelable(true)
+        }
     }
 
     @SuppressLint("ResourceType")
@@ -256,7 +275,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {

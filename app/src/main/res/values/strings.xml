@@ -22,6 +22,7 @@
     <string name="cancel">cancel</string>
     <string name="settings">Settings</string>
     <string name="explore">Explore</string>
+    <string name="report">Report</string>
 
 
     <string name="create_action_btn_text">Finish</string>
@@ -29,6 +30,16 @@
 
 
     <string name="loo_carousel_id">filterCarousel</string>
+
+
+    <string name="report_prompt">What\'s wrong with this loo?</string>
+    <array name="report_reasons">
+        <item>Inappropriate language</item>
+        <item>Inaccurate Location</item>
+        <item>Inaccurate Filters</item>
+        <item>No longer available</item>
+        <item>Other</item>
+    </array>
 
 
 </resources>

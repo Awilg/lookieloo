@@ -18,11 +18,15 @@ abstract class LooModel : EpoxyModelWithHolder<LooModel.Holder>() {
     @EpoxyAttribute
     var loo: Loo? = null
 
+    @EpoxyAttribute
+    var reportBtnText: String? = null
+
     override fun bind(holder: Holder) {
         loo?.let {
             holder.title.text = it.title
             holder.description.text = it.description
-            holder.reportBtn.text = "Report"
+            holder.reportBtn.text = reportBtnText
+            holder.reportBtn.setOnClickListener { onReport?.invoke() }
 
             it.filters?.let { filters ->
                 filters.forEach { filter ->
