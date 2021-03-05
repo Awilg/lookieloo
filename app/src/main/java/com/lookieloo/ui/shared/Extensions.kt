@@ -31,10 +31,10 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun Fragment.checkFineLocation(context: Context) {
+fun Fragment.requestFineLocation(context: Context) {
     if (!EasyPermissions.hasPermissions(
             context,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
         )
     ) {
         EasyPermissions.requestPermissions(
@@ -45,6 +45,14 @@ fun Fragment.checkFineLocation(context: Context) {
         )
     }
 }
+
+fun Fragment.hasLocationPermission(context: Context): Boolean {
+    return EasyPermissions.hasPermissions(
+        context,
+        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+}
+
 
 /** For use in the buildModels method of EpoxyController. A shortcut for creating a Carousel model, initializing it, and adding it to the controller.
  *

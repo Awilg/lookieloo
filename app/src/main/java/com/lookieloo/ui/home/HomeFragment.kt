@@ -2,16 +2,18 @@ package com.lookieloo.ui.home
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.get
@@ -57,6 +59,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
+
 
 class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
@@ -174,23 +177,6 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-//        val myLocationButton = mapFragment?.requireView()?.findViewById<View>(2)
-//
-//        if (myLocationButton != null && myLocationButton.layoutParams is RelativeLayout.LayoutParams) {
-//            // location button is inside of RelativeLayout
-//            val params = myLocationButton.layoutParams as RelativeLayout.LayoutParams
-//
-//            // Align it to - parent BOTTOM|LEFT
-//            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
-//            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-//            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
-//
-//            // TODO: adjust for insets here
-//            params.setMargins(0, view.dpToPx(150f), 0, 0)
-//            myLocationButton.layoutParams = params
-//        }
-
-
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
@@ -229,12 +215,12 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         setupFocusListenersUI(homeBinding.root)
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(map: GoogleMap) {
         // remove the direction buttons
         map.uiSettings.isMapToolbarEnabled = false
         map.uiSettings.isZoomControlsEnabled = false
         //map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.greyscale_map))
-
 
         // add markers for each
         sharedViewModel.nearbyLoos.observeForever { loos ->
@@ -258,11 +244,25 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
             }
         }
 
-        checkFineLocation(requireContext())
+        requestFineLocation(requireContext())
+
+        if (hasLocationPermission(requireContext())) {
+            map.isMyLocationEnabled = true
+            map.setOnMyLocationButtonClickListener(this)
+            map.setOnMyLocationClickListener(this)
+            // The map UI controls like the "my location" button are placed relative to the
+            // map object. To move them, we need to add padding to the map itself.
+            map.setPadding(
+                0,
+                convertDpToPixel(685f, requireContext()).toInt(),
+                convertDpToPixel(13f, requireContext()).toInt(),
+                0
+            )
+        }
+
         sharedViewModel.setMap(map)
         getDeviceLocation()
 
-        // Set a listener for marker click.
         map.setOnMarkerClickListener(this)
     }
 
@@ -328,7 +328,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
 
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        p0?.let {marker ->
+        p0?.let { marker ->
             val loo = marker.tag as Loo
             showDetailElements()
             sharedViewModel.setCurrentLooIndex(loo)
@@ -395,7 +395,10 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
                 }
 
                 // Use Gson to convert the response JSON object to a POJO
-                val result: GeocodingResult = gson.fromJson(results.getString(0), GeocodingResult::class.java)
+                val result: GeocodingResult = gson.fromJson(
+                    results.getString(0),
+                    GeocodingResult::class.java
+                )
 
                 homeBinding.searchBar.clearFocus()
                 adapter.setPredictions(emptyList())
@@ -416,13 +419,12 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
 
-
-    fun setupFocusListenersUI(view: View) {
+    private fun setupFocusListenersUI(view: View) {
         // Set up touch listener for non-text box views to hide keyboard.
         if (view !is EditText) {
             view.setOnTouchListener { _, _ ->
                 hideKeyboard()
-                if(homeBinding.searchBarEdittext.text.isNullOrEmpty()) {
+                if (homeBinding.searchBarEdittext.text.isNullOrEmpty()) {
                     homeBinding.searchBar.clearFocus()
                     adapter.setPredictions(emptyList())
                 }
@@ -446,11 +448,9 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
     override fun onMyLocationClick(location: Location) {
-        Toast.makeText(context, "Current location:\n$location", Toast.LENGTH_LONG).show()
     }
 
     override fun onMyLocationButtonClick(): Boolean {
-        Toast.makeText(context, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
@@ -475,5 +475,23 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     override fun invalidate() {
         filterRecyclerView.requestModelBuild()
         looRecyclerView.requestModelBuild()
+    }
+
+    /**
+     * This method converts dp unit to equivalent pixels, depending on device density.
+     * @param dp A value in dp (density independent pixels) unit. Which we need to convert into pixels
+     * @param context Context to get resources and device specific display metrics. If you don't have
+     * access to Context, just pass null.
+     * @return A float value to represent px equivalent to dp depending on device density
+     */
+    fun convertDpToPixel(dp: Float, context: Context?): Float {
+        return if (context != null) {
+            val resources = context.resources
+            val metrics = resources.displayMetrics
+            dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+        } else {
+            val metrics = Resources.getSystem().displayMetrics
+            dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+        }
     }
 }

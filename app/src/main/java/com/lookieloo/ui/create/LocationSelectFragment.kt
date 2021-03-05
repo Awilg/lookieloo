@@ -18,7 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.lookieloo.R
 import com.lookieloo.databinding.FragmentCreateLocationSelectBinding
 import com.lookieloo.ui.shared.RequestCodes
-import com.lookieloo.ui.shared.checkFineLocation
+import com.lookieloo.ui.shared.requestFineLocation
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
 
@@ -78,7 +78,7 @@ class LocationSelectFragment : Fragment(), MavericksView, OnMapReadyCallback, Ea
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        checkFineLocation(requireContext())
+        requestFineLocation(requireContext())
         viewModel.setLocationSelectMap(map)
         getDeviceLocation()
     }
