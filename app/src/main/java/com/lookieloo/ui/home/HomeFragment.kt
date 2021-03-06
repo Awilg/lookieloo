@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.get
@@ -81,6 +82,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     private val gson =
         GsonBuilder().registerTypeAdapter(LatLng::class.java, LatLngAdapter()).create()
     private lateinit var queue: RequestQueue
+    private var mapView: View? = null
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
@@ -176,6 +178,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+        mapView = mapFragment?.view
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
@@ -250,20 +253,28 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
             map.isMyLocationEnabled = true
             map.setOnMyLocationButtonClickListener(this)
             map.setOnMyLocationClickListener(this)
-            // The map UI controls like the "my location" button are placed relative to the
-            // map object. To move them, we need to add padding to the map itself.
-            map.setPadding(
-                0,
-                convertDpToPixel(685f, requireContext()).toInt(),
-                convertDpToPixel(13f, requireContext()).toInt(),
-                0
-            )
         }
+
+        moveMyLocationButton()
 
         sharedViewModel.setMap(map)
         getDeviceLocation()
 
         map.setOnMarkerClickListener(this)
+    }
+
+    private fun moveMyLocationButton() {
+        mapView?.let {
+            // Get the button view
+            val locationButton = it.findViewWithTag("GoogleMapMyLocationButton") as View
+            // and next place it, on bottom right (as Google Maps app)
+            val layoutParams = locationButton.layoutParams as RelativeLayout.LayoutParams
+            // position on right bottom
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+            layoutParams.rightMargin = convertDpToPixel(23f, requireContext()).toInt()
+            layoutParams.bottomMargin = convertDpToPixel(80f, requireContext()).toInt()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -272,7 +283,6 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
@@ -442,9 +452,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
     }
 
     override fun onCheckedChanged(button: MaterialButton?, isChecked: Boolean) {
-        button?.let {
-            sharedViewModel.updateFilters(button.text, isChecked)
-        }
+        button?.let { sharedViewModel.updateFilters(button.text, isChecked) }
     }
 
     override fun onMyLocationClick(location: Location) {
@@ -484,7 +492,7 @@ class HomeFragment : Fragment(), MavericksView, OnMapReadyCallback,
      * access to Context, just pass null.
      * @return A float value to represent px equivalent to dp depending on device density
      */
-    fun convertDpToPixel(dp: Float, context: Context?): Float {
+    private fun convertDpToPixel(dp: Float, context: Context?): Float {
         return if (context != null) {
             val resources = context.resources
             val metrics = resources.displayMetrics
